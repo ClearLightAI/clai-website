@@ -21,7 +21,7 @@
 
 const DEFAULTS = {
   speed: 1,
-  starCount: 540,
+  starCount: 270,
   maxDepth: 1200,
 };
 
@@ -134,13 +134,20 @@ export function createStarfield(canvas, options = {}) {
       // Center = tiny dot, edge = long streak. Depth also contributes.
       const radialFactor = radialDist * radialDist; // quadratic — tight center, long edges
       const depthFactor = Math.max(0, depthRatio - 0.1);
-      const streakLen = baseSize + radialFactor * depthFactor * 120;
+      const streakLen = baseSize + radialFactor * depthFactor * 80;
+
+      // Purple tint proportional to radial distance from center
+      // Center = white, edges = purple (#725ba7 = rgb(114, 91, 167))
+      const purpleMix = Math.min(1, radialDist * 0.8);
+      const cr = s.r + (114 - s.r) * purpleMix;
+      const cg = s.g + (91 - s.g) * purpleMix;
+      const cb = s.b + (167 - s.b) * purpleMix;
 
       ctx.save();
       ctx.translate(sx, sy);
       ctx.rotate(angle);
       ctx.globalAlpha = alpha;
-      ctx.fillStyle = `rgb(${s.r},${s.g},${s.b})`;
+      ctx.fillStyle = `rgb(${cr | 0},${cg | 0},${cb | 0})`;
       ctx.fillRect(-streakLen * 0.5, -baseSize * 0.3, streakLen, baseSize * 0.6);
       ctx.restore();
     }
