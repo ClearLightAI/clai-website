@@ -1,14 +1,14 @@
 ---
 /**
- * Starfield background — renders as a fixed canvas behind all content.
- * The animation JS loads client-side only, deferred to avoid blocking paint.
+ * Starfield background — fixed canvas behind all content.
+ * Animation JS loads client-side only, deferred to avoid blocking paint.
  */
 ---
 
 <div class="starfield-container">
   <canvas id="starfield-canvas"></canvas>
 
-  <!-- Ambient nebula orbs -->
+  <!-- Ambient nebula orbs — CSS only, no JS cost -->
   <div class="orb orb-gold"></div>
   <div class="orb orb-purple"></div>
   <div class="orb orb-blue"></div>
@@ -21,7 +21,7 @@
     "starfield-canvas"
   ) as HTMLCanvasElement;
   if (canvas) {
-    const sf = createStarfield(canvas, { speed: 0.6, trailLength: 0.8 });
+    const sf = createStarfield(canvas, { speed: 0.7 });
     sf.start();
   }
 </script>
@@ -40,74 +40,71 @@
     height: 100%;
   }
 
-  /* Nebula orbs — soft animated glows */
+  /* Nebula orbs — soft animated glows, GPU-composited */
   .orb {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
-    will-change: transform, opacity;
-    animation: orbFloat 22s ease-in-out infinite;
+    will-change: transform;
+    animation: orbFloat 24s ease-in-out infinite;
   }
 
   .orb-gold {
-    width: 700px;
-    height: 700px;
-    top: -250px;
-    right: -200px;
+    width: 600px;
+    height: 600px;
+    top: -200px;
+    right: -180px;
     background: radial-gradient(
       circle at 40% 40%,
-      rgba(229, 182, 115, 0.12) 0%,
-      rgba(229, 182, 115, 0.03) 40%,
+      rgba(229, 182, 115, 0.1) 0%,
+      rgba(229, 182, 115, 0.02) 40%,
       transparent 70%
     );
     filter: blur(60px);
   }
 
   .orb-purple {
-    width: 550px;
-    height: 550px;
-    bottom: -150px;
-    left: -200px;
+    width: 500px;
+    height: 500px;
+    bottom: -120px;
+    left: -180px;
     background: radial-gradient(
       circle at 60% 40%,
-      rgba(160, 130, 220, 0.08) 0%,
-      rgba(140, 110, 200, 0.02) 40%,
+      rgba(114, 91, 167, 0.07) 0%,
+      rgba(114, 91, 167, 0.015) 40%,
       transparent 70%
     );
     filter: blur(70px);
     animation-delay: -8s;
-    animation-duration: 28s;
+    animation-duration: 30s;
   }
 
   .orb-blue {
-    width: 450px;
-    height: 450px;
-    top: 40vh;
-    right: -120px;
+    width: 400px;
+    height: 400px;
+    top: 45vh;
+    right: -100px;
     background: radial-gradient(
       circle at 50% 50%,
-      rgba(100, 160, 220, 0.07) 0%,
-      rgba(100, 160, 220, 0.01) 40%,
+      rgba(75, 158, 215, 0.06) 0%,
+      rgba(75, 158, 215, 0.01) 40%,
       transparent 70%
     );
     filter: blur(80px);
-    animation-delay: -15s;
-    animation-duration: 32s;
+    animation-delay: -16s;
+    animation-duration: 34s;
   }
 
   @keyframes orbFloat {
     0%,
     100% {
       transform: translate(0, 0) scale(1);
-      opacity: 1;
     }
     33% {
-      transform: translate(25px, -35px) scale(1.06);
-      opacity: 0.75;
+      transform: translate(20px, -30px) scale(1.04);
     }
     66% {
-      transform: translate(-18px, 20px) scale(0.94);
-      opacity: 0.9;
+      transform: translate(-15px, 18px) scale(0.96);
     }
   }
 </style>
