@@ -120,18 +120,21 @@ export function createStarfield(canvas, options = {}) {
 
       const depthRatio = 1 - s.z / opts.maxDepth; // 0 = far, 1 = near
 
-      // Brightness and size scale with proximity
-      const alpha = 0.08 + depthRatio * 0.92;
-      const baseSize = 0.3 + depthRatio * 1.4;
-
-      // Far stars = tiny dots, near stars = long streaks (cubic curve)
-      const t = Math.max(0, depthRatio - 0.15);
-      const streakLen = baseSize + t * t * 35;
-
-      // Angle from center of viewport
+      // Radial distance from center (0 = center, 1 = edge of viewport)
       const dx = sx - halfW;
       const dy = sy - halfH;
+      const radialDist = Math.sqrt(dx * dx + dy * dy) / Math.max(halfW, halfH);
       const angle = Math.atan2(dy, dx);
+
+      // Brightness scales with proximity
+      const alpha = 0.08 + depthRatio * 0.92;
+      const baseSize = 0.3 + depthRatio * 1.2;
+
+      // Streak length is proportional to RADIAL distance from center
+      // Center = tiny dot, edge = long streak. Depth also contributes.
+      const radialFactor = radialDist * radialDist; // quadratic — tight center, long edges
+      const depthFactor = Math.max(0, depthRatio - 0.1);
+      const streakLen = baseSize + radialFactor * depthFactor * 40;
 
       ctx.save();
       ctx.translate(sx, sy);

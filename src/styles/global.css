@@ -3,7 +3,7 @@
 /* === DESIGN TOKENS — aligned to ClearLight AI brand board === */
 @theme {
   /* Background tones — black base, purple-tinted cards */
-  --color-black: #050505;
+  --color-bg: #050505;
   --color-dark: #0a0a0a;
   --color-card: #12112e;
   --color-card-hover: #1a1940;
@@ -40,7 +40,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: var(--color-black);
+  background: #050505;
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
