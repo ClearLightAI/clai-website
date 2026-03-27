@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background gradient -->
+    <radialGradient id="bg" cx="50%" cy="70%" r="70%">
+      <stop offset="0%" stop-color="#1a1555"/>
+      <stop offset="100%" stop-color="#13123b"/>
+    </radialGradient>
+    <!-- Horizon arc gradient (blue to purple) -->
+    <linearGradient id="arc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4b9ed7"/>
+      <stop offset="50%" stop-color="#725ba7"/>
+      <stop offset="100%" stop-color="#4b9ed7"/>
+    </linearGradient>
+    <!-- Golden light burst -->
+    <radialGradient id="glow" cx="50%" cy="0%" r="60%">
+      <stop offset="0%" stop-color="#e5b673" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#e5b673" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#e5b673" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Subtle atmospheric haze -->
+    <radialGradient id="haze" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4b9ed7" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#4b9ed7" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Circle clip for round profile -->
+    <clipPath id="circle">
+      <circle cx="256" cy="256" r="256"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#circle)">
+    <!-- Deep navy background -->
+    <rect width="512" height="512" fill="url(#bg)"/>
+
+    <!-- Atmospheric haze behind the arc -->
+    <ellipse cx="256" cy="340" rx="300" ry="120" fill="url(#haze)"/>
+
+    <!-- Golden light burst at horizon center -->
+    <ellipse cx="256" cy="330" rx="180" ry="100" fill="url(#glow)"/>
+
+    <!-- Light rays radiating upward -->
+    <g opacity="0.4">
+      <line x1="256" y1="330" x2="256" y2="100" stroke="#e5b673" stroke-width="1.5" opacity="0.6"/>
+      <line x1="256" y1="330" x2="200" y2="120" stroke="#e5b673" stroke-width="1" opacity="0.35"/>
+      <line x1="256" y1="330" x2="312" y2="120" stroke="#e5b673" stroke-width="1" opacity="0.35"/>
+      <line x1="256" y1="330" x2="160" y2="150" stroke="#e5b673" stroke-width="0.8" opacity="0.2"/>
+      <line x1="256" y1="330" x2="352" y2="150" stroke="#e5b673" stroke-width="0.8" opacity="0.2"/>
+    </g>
+
+    <!-- Horizon arc (the curved planet edge) -->
+    <ellipse cx="256" cy="520" rx="320" ry="200" fill="none" stroke="url(#arc)" stroke-width="3" opacity="0.9"/>
+
+    <!-- Brighter inner arc edge -->
+    <ellipse cx="256" cy="520" rx="318" ry="198" fill="none" stroke="#4b9ed7" stroke-width="1" opacity="0.5"/>
+
+    <!-- "CL" monogram -->
+    <text x="256" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="300" font-size="140" fill="#ffffff" letter-spacing="8" opacity="0.95">CL</text>
+  </g>
+</svg>
