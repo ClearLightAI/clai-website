@@ -1,0 +1,65 @@
+---
+/**
+ * Social proof / testimonials section — real client results.
+ * Uses verified proof points since formal testimonials are being collected.
+ */
+const results = [
+  {
+    client: "Spartans Gym",
+    type: "Fitness",
+    stat: "25+ hrs/wk",
+    label: "recovered",
+    quote: "CEO was working 18-hour days fielding 200+ messages daily. We audited 6 team members and identified 25+ hours of recoverable time per week.",
+    color: "gold",
+  },
+  {
+    client: "Human Garage",
+    type: "Wellness",
+    stat: "52%",
+    label: "conversion",
+    quote: "AI lead scoring across 760 leads. 52% conversion for high-scored leads. $0.01 per lead to operate. Zero false negatives in the entire dataset.",
+    color: "blue",
+  },
+  {
+    client: "9D Breathwork",
+    type: "EdTech",
+    stat: "26x",
+    label: "growth factor",
+    quote: "AI facilitator support system and content engine for the world's leading breathwork platform. 26x difference in conversion between scored segments.",
+    color: "purple",
+  },
+];
+---
+
+<section class="relative z-10 py-24 px-6 border-t border-white/[0.04]">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="font-display text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-text-tertiary mb-3">
+        Results
+      </p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-white">
+        Real businesses. Real numbers.
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {results.map((r) => (
+        <div class="rounded-xl bg-card border border-white/[0.04] p-7 hover:border-white/[0.08] transition-colors">
+          <div class="flex items-center justify-between mb-5">
+            <span class="font-display font-bold text-sm text-white">{r.client}</span>
+            <span class="text-[0.6rem] font-semibold uppercase tracking-[0.1em] text-text-tertiary">{r.type}</span>
+          </div>
+
+          <p class="text-sm leading-relaxed text-text-secondary mb-6">{r.quote}</p>
+
+          <div class="pt-5 border-t border-white/[0.04]">
+            <span class={`font-display font-bold text-2xl tracking-tight text-${r.color}`}>
+              {r.stat}
+            </span>
+            <span class="text-text-tertiary text-xs ml-2">{r.label}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

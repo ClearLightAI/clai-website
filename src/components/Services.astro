@@ -1,0 +1,59 @@
+---
+/**
+ * Brief services section — 3 cards, audit as hero, others supporting.
+ */
+const services = [
+  {
+    icon: "🎯",
+    name: "AI Readiness Audit",
+    desc: "Structured assessment of your operations — where AI saves the most time and money, and what to build first.",
+    accent: "gold",
+    tag: "Flagship",
+  },
+  {
+    icon: "🧠",
+    name: "Company Brain",
+    desc: "Your internal knowledge — policies, SOPs, documents — made instantly searchable by AI. Built on your data.",
+    accent: "blue",
+  },
+  {
+    icon: "⚡",
+    name: "AI Agents & Voice",
+    desc: "Custom agents for lead qualification, scheduling, support, and data synthesis. Voice and text. 24/7.",
+    accent: "purple",
+  },
+];
+---
+
+<section class="relative z-10 py-24 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="font-display text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-text-tertiary mb-3">
+        What we build
+      </p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-white">
+        From audit to implementation
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/[0.04] rounded-xl overflow-hidden">
+      {services.map((s) => (
+        <div class="bg-card hover:bg-card-hover transition-colors p-8 md:p-10 relative group">
+          {s.tag && (
+            <span class="absolute top-6 right-6 text-[0.55rem] font-bold tracking-[0.12em] uppercase text-gold/60">
+              {s.tag}
+            </span>
+          )}
+          <div class="text-2xl mb-5">{s.icon}</div>
+          <h3
+            class="font-display font-bold text-base tracking-tight text-white mb-3"
+            style={`--accent: var(--color-${s.accent})`}
+          >
+            {s.name}
+          </h3>
+          <p class="text-sm leading-relaxed text-text-secondary">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
