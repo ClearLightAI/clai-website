@@ -1,23 +1,31 @@
 @import "tailwindcss";
 
-/* === DESIGN TOKENS === */
+/* === DESIGN TOKENS — aligned to ClearLight AI brand board === */
 @theme {
+  /* Background tones — black base, purple-tinted cards */
   --color-black: #050505;
   --color-dark: #0a0a0a;
-  --color-card: #0e0e0e;
-  --color-card-hover: #161616;
+  --color-card: #12112e;
+  --color-card-hover: #1a1940;
   --color-border: rgba(255, 255, 255, 0.06);
   --color-border-hover: rgba(255, 255, 255, 0.12);
-  --color-text: #f0ede6;
-  --color-text-secondary: rgba(255, 255, 255, 0.45);
-  --color-text-tertiary: rgba(255, 255, 255, 0.22);
-  --color-gold: #e5b673;
-  --color-gold-dim: #c99a52;
-  --color-purple: #b8a0e0;
-  --color-blue: #7cb8df;
 
-  --font-display: "Syne", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  /* Text */
+  --color-text: #f0ede6;
+  --color-text-secondary: rgba(255, 255, 255, 0.5);
+  --color-text-tertiary: rgba(255, 255, 255, 0.25);
+
+  /* Brand accents */
+  --color-gold: #e5b673;
+  --color-gold-bright: #f3d259;
+  --color-gold-dim: #c99a52;
+  --color-purple: #725ba7;
+  --color-purple-light: #b8a0e0;
+  --color-blue: #4b9ed7;
+
+  /* Fonts — brand board: Garet (display) + Nunito Sans (body) */
+  --font-display: "Garet", sans-serif;
+  --font-body: "Nunito Sans", sans-serif;
 }
 
 /* === BASE === */
@@ -86,7 +94,7 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.035;
+  opacity: 0.03;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
@@ -105,8 +113,8 @@ body {
   background: conic-gradient(
     from 180deg,
     rgba(229, 182, 115, 0.25),
-    rgba(184, 160, 224, 0.15),
-    rgba(124, 184, 223, 0.1),
+    rgba(114, 91, 167, 0.15),
+    rgba(75, 158, 215, 0.1),
     rgba(229, 182, 115, 0.25)
   );
   z-index: -1;

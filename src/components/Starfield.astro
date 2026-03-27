@@ -1,28 +1,56 @@
 ---
 /**
  * Starfield background — fixed canvas behind all content.
- * Animation JS loads client-side only, deferred to avoid blocking paint.
+ * Includes a subtle purple glow that follows the cursor with a trailing tail.
  */
 ---
 
 <div class="starfield-container">
   <canvas id="starfield-canvas"></canvas>
-
-  <!-- Ambient nebula orbs — CSS only, no JS cost -->
-  <div class="orb orb-gold"></div>
-  <div class="orb orb-purple"></div>
-  <div class="orb orb-blue"></div>
+  <div id="cursor-glow" class="cursor-glow"></div>
+  <div id="cursor-tail" class="cursor-tail"></div>
 </div>
 
 <script>
   import { createStarfield } from "../starfield.js";
 
-  const canvas = document.getElementById(
-    "starfield-canvas"
-  ) as HTMLCanvasElement;
+  // Starfield
+  const canvas = document.getElementById("starfield-canvas") as HTMLCanvasElement;
   if (canvas) {
     const sf = createStarfield(canvas, { speed: 0.7 });
     sf.start();
+  }
+
+  // Cursor-following purple glow with trailing tail
+  const glow = document.getElementById("cursor-glow") as HTMLDivElement;
+  const tail = document.getElementById("cursor-tail") as HTMLDivElement;
+  if (glow && tail) {
+    let targetX = window.innerWidth * 0.5;
+    let targetY = window.innerHeight * 0.5;
+    let glowX = targetX;
+    let glowY = targetY;
+    let tailX = targetX;
+    let tailY = targetY;
+
+    document.addEventListener("mousemove", (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    });
+
+    function updateGlow() {
+      // Main glow follows cursor with moderate lag
+      glowX += (targetX - glowX) * 0.06;
+      glowY += (targetY - glowY) * 0.06;
+      glow.style.transform = `translate(${glowX - 250}px, ${glowY - 250}px)`;
+
+      // Tail follows the glow with even more lag — creates trailing effect
+      tailX += (glowX - tailX) * 0.03;
+      tailY += (glowY - tailY) * 0.03;
+      tail.style.transform = `translate(${tailX - 350}px, ${tailY - 350}px)`;
+
+      requestAnimationFrame(updateGlow);
+    }
+    requestAnimationFrame(updateGlow);
   }
 </script>
 
@@ -40,71 +68,37 @@
     height: 100%;
   }
 
-  /* Nebula orbs — soft animated glows, GPU-composited */
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    will-change: transform;
-    animation: orbFloat 24s ease-in-out infinite;
-  }
-
-  .orb-gold {
-    width: 600px;
-    height: 600px;
-    top: -200px;
-    right: -180px;
-    background: radial-gradient(
-      circle at 40% 40%,
-      rgba(229, 182, 115, 0.1) 0%,
-      rgba(229, 182, 115, 0.02) 40%,
-      transparent 70%
-    );
-    filter: blur(60px);
-  }
-
-  .orb-purple {
+  /* Main glow — tight, follows cursor closely */
+  .cursor-glow {
+    position: fixed;
     width: 500px;
     height: 500px;
-    bottom: -120px;
-    left: -180px;
+    border-radius: 50%;
     background: radial-gradient(
-      circle at 60% 40%,
-      rgba(114, 91, 167, 0.07) 0%,
-      rgba(114, 91, 167, 0.015) 40%,
-      transparent 70%
+      circle at center,
+      rgba(114, 91, 167, 0.10) 0%,
+      rgba(114, 91, 167, 0.04) 30%,
+      transparent 65%
     );
-    filter: blur(70px);
-    animation-delay: -8s;
-    animation-duration: 30s;
+    filter: blur(30px);
+    pointer-events: none;
+    will-change: transform;
   }
 
-  .orb-blue {
-    width: 400px;
-    height: 400px;
-    top: 45vh;
-    right: -100px;
+  /* Trailing tail — larger, softer, lags behind */
+  .cursor-tail {
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
     background: radial-gradient(
-      circle at 50% 50%,
-      rgba(75, 158, 215, 0.06) 0%,
-      rgba(75, 158, 215, 0.01) 40%,
-      transparent 70%
+      circle at center,
+      rgba(114, 91, 167, 0.06) 0%,
+      rgba(75, 94, 167, 0.02) 35%,
+      transparent 60%
     );
-    filter: blur(80px);
-    animation-delay: -16s;
-    animation-duration: 34s;
-  }
-
-  @keyframes orbFloat {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    33% {
-      transform: translate(20px, -30px) scale(1.04);
-    }
-    66% {
-      transform: translate(-15px, 18px) scale(0.96);
-    }
+    filter: blur(50px);
+    pointer-events: none;
+    will-change: transform;
   }
 </style>
