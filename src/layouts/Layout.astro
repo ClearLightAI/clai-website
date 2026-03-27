@@ -6,7 +6,7 @@ interface Props {
 
 const {
   title = "ClearLight AI | What's the ROI on AI in Your Business?",
-  description = "Take the same AI readiness assessment trusted by 7-, 8- and 9-figure businesses. Discover where AI fits and what to build first.",
+  description = "Take the same assessment trusted by nine-figure businesses and learn where you can forge ahead.",
 } = Astro.props;
 ---
 
@@ -17,6 +17,16 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <!-- Open Graph / Social previews -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://clearlightai.com/og-image.png" />
+    <meta property="og:url" content="https://clearlightai.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://clearlightai.com/og-image.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <!-- Garet (display) via CDNFonts -->
     <link
