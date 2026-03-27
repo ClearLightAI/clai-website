@@ -136,12 +136,12 @@ export function createStarfield(canvas, options = {}) {
       const depthFactor = Math.max(0, depthRatio - 0.1);
       const streakLen = baseSize + radialFactor * depthFactor * 80;
 
-      // Purple tint proportional to radial distance from center
-      // Center = white, edges = purple (#725ba7 = rgb(114, 91, 167))
-      const purpleMix = Math.min(1, radialDist * 0.8);
-      const cr = s.r + (114 - s.r) * purpleMix;
-      const cg = s.g + (91 - s.g) * purpleMix;
-      const cb = s.b + (167 - s.b) * purpleMix;
+      // Lavender tint proportional to radial distance from center
+      // Center = white, edges = brand lavender (#9b8ec4 = rgb(155, 142, 196))
+      const purpleMix = Math.min(1, radialDist * 0.7);
+      const cr = s.r + (155 - s.r) * purpleMix;
+      const cg = s.g + (142 - s.g) * purpleMix;
+      const cb = s.b + (196 - s.b) * purpleMix;
 
       ctx.save();
       ctx.translate(sx, sy);

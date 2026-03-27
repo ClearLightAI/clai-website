@@ -2,7 +2,6 @@
 /**
  * Hero section — full viewport, centered.
  * Primary CTA: link to audit.clearlightai.com
- * Secondary: visual nudge toward the ElevenLabs bubble (bottom-right)
  */
 ---
 
@@ -10,10 +9,10 @@
   <div class="max-w-3xl mx-auto text-center">
     <!-- Eyebrow -->
     <div
-      class="animate-fade-up delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] mb-10"
+      class="animate-fade-up delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-lavender/20 bg-lavender/[0.04] mb-10"
     >
-      <span class="w-1.5 h-1.5 rounded-full bg-purple animate-pulse"></span>
-      <span class="font-display text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-text-secondary">
+      <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
+      <span class="font-display text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-lavender/70">
         AI Readiness Assessment
       </span>
     </div>
@@ -23,7 +22,7 @@
       class="animate-fade-up delay-2 font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.02] tracking-[-0.04em] text-white mb-6"
     >
       What's the ROI on AI
-      <span class="text-purple-light">in your business?</span>
+      <span class="text-gradient-brand">in your business?</span>
     </h1>
 
     <!-- Subtitle -->
@@ -31,11 +30,11 @@
       Take the same assessment trusted by nine-figure businesses and learn where you can forge ahead.
     </p>
 
-    <!-- Primary CTA -->
-    <div class="animate-fade-up delay-4 flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+    <!-- Primary CTA — gold pop accent, like the tagline in the logo -->
+    <div class="animate-fade-up delay-4 flex flex-col sm:flex-row items-center justify-center gap-4">
       <a
         href="https://audit.clearlightai.com"
-        class="group inline-flex items-center gap-3 px-8 py-4 bg-purple text-white font-display font-bold text-sm tracking-[0.06em] uppercase rounded-lg hover:scale-[1.02] transition-transform"
+        class="group inline-flex items-center gap-3 px-8 py-4 bg-gold text-[#0d0e2b] font-display font-bold text-sm tracking-[0.06em] uppercase rounded-lg hover:scale-[1.02] transition-transform"
       >
         Start Free Audit
         <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -43,14 +42,6 @@
         </svg>
       </a>
       <span class="text-text-tertiary text-sm">10 minutes. No cost. Instant results.</span>
-    </div>
-
-    <!-- Voice agent nudge -->
-    <div class="animate-fade-in delay-7 mt-16 flex items-center justify-center gap-2 text-text-tertiary text-xs">
-      <span>Prefer to talk? Try our AI voice strategist</span>
-      <svg class="w-3 h-3 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-      </svg>
     </div>
   </div>
 </section>

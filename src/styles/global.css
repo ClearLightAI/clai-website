@@ -1,27 +1,33 @@
 @import "tailwindcss";
 
-/* === DESIGN TOKENS — aligned to ClearLight AI brand board === */
+/* === DESIGN TOKENS — extracted from ClearLight AI logo === */
 @theme {
-  /* Background tones — black base, purple-tinted cards */
-  --color-bg: #050505;
-  --color-dark: #0a0a0a;
-  --color-card: #12112e;
-  --color-card-hover: #1a1940;
+  /* Background — deep navy from logo bg */
+  --color-bg: #0d0e2b;
+  --color-bg-light: #141538;
+  --color-card: #141538;
+  --color-card-hover: #1a1c48;
   --color-border: rgba(255, 255, 255, 0.06);
   --color-border-hover: rgba(255, 255, 255, 0.12);
 
   /* Text */
-  --color-text: #f0ede6;
+  --color-text: #e8e6f0;
   --color-text-secondary: rgba(255, 255, 255, 0.5);
   --color-text-tertiary: rgba(255, 255, 255, 0.25);
 
-  /* Brand accents */
-  --color-gold: #e5b673;
-  --color-gold-bright: #f3d259;
-  --color-gold-dim: #c99a52;
-  --color-purple: #725ba7;
-  --color-purple-light: #b8a0e0;
-  --color-blue: #4b9ed7;
+  /* Brand — from logo */
+  --color-lavender: #9b8ec4;       /* "Clear" text */
+  --color-navy-text: #1e2254;      /* "Light" text */
+  --color-ai-blue: #6ba4d4;        /* "AI" text */
+  --color-gold: #e5b673;           /* tagline / pop accent */
+  --color-gold-bright: #f0c85a;    /* sunrise burst center */
+  --color-arc-blue: #4b7fc4;       /* planet arc blue end */
+  --color-arc-purple: #6b4fa0;     /* planet arc purple end */
+
+  /* Legacy compat — map old names to new palette */
+  --color-purple: #6b4fa0;
+  --color-purple-light: #9b8ec4;
+  --color-blue: #6ba4d4;
 
   /* Fonts — brand board: Garet (display) + Nunito Sans (body) */
   --font-display: "Garet", sans-serif;
@@ -31,7 +37,7 @@
 /* === BASE === */
 ::selection {
   background: var(--color-gold);
-  color: #1a1000;
+  color: #0d0e2b;
 }
 
 html {
@@ -40,11 +46,25 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: #050505;
+  background: #0d0e2b;
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* === GRADIENT TEXT (mimics logo "ClearLightAI" treatment) === */
+.text-gradient-brand {
+  background: linear-gradient(
+    90deg,
+    #9b8ec4 0%,
+    #7b6eb0 30%,
+    #6ba4d4 70%,
+    #6ba4d4 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* === FADE-IN ANIMATIONS === */
@@ -94,30 +114,8 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.03;
+  opacity: 0.025;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
-}
-
-/* === WIDGET GLOW RING === */
-.widget-glow {
-  position: relative;
-}
-
-.widget-glow::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 20px;
-  background: conic-gradient(
-    from 180deg,
-    rgba(229, 182, 115, 0.25),
-    rgba(114, 91, 167, 0.15),
-    rgba(75, 158, 215, 0.1),
-    rgba(229, 182, 115, 0.25)
-  );
-  z-index: -1;
-  animation: pulseGlow 4s ease-in-out infinite;
-  filter: blur(1px);
 }
