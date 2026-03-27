@@ -37,7 +37,7 @@ const results = [
       <p class="font-display text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-text-tertiary mb-3">
         Results
       </p>
-      <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-white">
+      <h2 class="font-display font-light text-3xl md:text-4xl tracking-tight text-white">
         Real businesses. Real numbers.
       </h2>
     </div>
@@ -46,14 +46,14 @@ const results = [
       {results.map((r) => (
         <div class="rounded-xl bg-card border border-white/[0.04] p-7 hover:border-white/[0.08] transition-colors">
           <div class="flex items-center justify-between mb-5">
-            <span class="font-display font-bold text-sm text-white">{r.client}</span>
+            <span class="font-display font-light text-sm text-white">{r.client}</span>
             <span class="text-[0.6rem] font-semibold uppercase tracking-[0.1em] text-text-tertiary">{r.type}</span>
           </div>
 
           <p class="text-sm leading-relaxed text-text-secondary mb-6">{r.quote}</p>
 
           <div class="pt-5 border-t border-white/[0.04]">
-            <span class={`font-display font-bold text-2xl tracking-tight text-${r.color}`}>
+            <span class={`font-display font-light text-2xl tracking-tight text-${r.color}`}>
               {r.stat}
             </span>
             <span class="text-text-tertiary text-xs ml-2">{r.label}</span>
