@@ -21,7 +21,7 @@
 
 const DEFAULTS = {
   speed: 1,
-  starCount: 270,
+  starCount: 540,
   maxDepth: 1200,
 };
 
@@ -134,7 +134,7 @@ export function createStarfield(canvas, options = {}) {
       // Center = tiny dot, edge = long streak. Depth also contributes.
       const radialFactor = radialDist * radialDist; // quadratic — tight center, long edges
       const depthFactor = Math.max(0, depthRatio - 0.1);
-      const streakLen = baseSize + radialFactor * depthFactor * 40;
+      const streakLen = baseSize + radialFactor * depthFactor * 120;
 
       ctx.save();
       ctx.translate(sx, sy);
