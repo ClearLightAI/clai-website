@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw Executive Intelligence Layer — ClearLight AI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+
+  :root {
+    --bg: #0a0c10;
+    --surface: #12151c;
+    --surface-raised: #181c25;
+    --border: #252a36;
+    --border-glow: #2d3548;
+    --text: #c8cdd8;
+    --text-dim: #6b7280;
+    --text-bright: #e8ecf4;
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: #92610b;
+    --accent-blue: #3b82f6;
+    --accent-blue-dim: #1d4078;
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: #065f42;
+    --accent-rose: #f43f5e;
+    --accent-violet: #8b5cf6;
+    --accent-violet-dim: #4c2f8e;
+    --accent-cyan: #06b6d4;
+    --accent-slate: #475569;
+    --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: var(--noise);
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 3rem 3rem 2rem;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 3rem;
+    right: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-glow) 20%, var(--border-glow) 80%, transparent);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .header-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+  }
+  .header h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: 2.4rem;
+    color: var(--text-bright);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .header h1 em {
+    color: var(--accent-amber);
+    font-style: italic;
+  }
+  .header-sub {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-top: 0.6rem;
+    max-width: 52ch;
+    line-height: 1.5;
+  }
+  .header-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-top: 1rem;
+    display: flex;
+    gap: 1.5rem;
+  }
+  .header-meta span { opacity: 0.7; }
+
+  /* ── MAIN GRID ── */
+  .diagram {
+    padding: 2rem 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* ── LAYER ── */
+  .layer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    animation: layerIn 0.6s ease both;
+  }
+  .layer:nth-child(1) { animation-delay: 0.1s; }
+  .layer:nth-child(2) { animation-delay: 0.2s; }
+  .layer:nth-child(3) { animation-delay: 0.3s; }
+  .layer:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes layerIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .layer-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-raised);
+  }
+  .layer-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    width: 1.8rem;
+    height: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .layer-header h2 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: 0.02em;
+  }
+  .layer-header .layer-desc {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-left: auto;
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+  }
+
+  .layer-body {
+    padding: 1.25rem 1.5rem;
+  }
+
+  /* ── COLOR ACCENTS PER LAYER ── */
+  .layer--interface .layer-num { background: rgba(59,130,246,0.12); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.2); }
+  .layer--interface .layer-header { border-bottom-color: rgba(59,130,246,0.1); }
+
+  .layer--consolidation .layer-num { background: rgba(139,92,246,0.12); color: var(--accent-violet); border: 1px solid rgba(139,92,246,0.2); }
+  .layer--consolidation .layer-header { border-bottom-color: rgba(139,92,246,0.1); }
+
+  .layer--knowledge .layer-num { background: rgba(16,185,129,0.12); color: var(--accent-emerald); border: 1px solid rgba(16,185,129,0.2); }
+  .layer--knowledge .layer-header { border-bottom-color: rgba(16,185,129,0.1); }
+
+  .layer--ingestion .layer-num { background: rgba(245,158,11,0.12); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.2); }
+  .layer--ingestion .layer-header { border-bottom-color: rgba(245,158,11,0.1); }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .cards--2 { grid-template-columns: 1fr 1fr; }
+  .cards--3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cards--4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .cards--5 { grid-template-columns: repeat(5, 1fr); }
+  .cards--6 { grid-template-columns: repeat(6, 1fr); }
+  .cards--2-1 { grid-template-columns: 2fr 1fr; }
+
+  .card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .card:hover {
+    border-color: var(--border-glow);
+  }
+
+  .card-icon {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .card h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 0.35rem;
+  }
+  .card p {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+  .card .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    margin-right: 0.25rem;
+  }
+  .tag--amber { background: rgba(245,158,11,0.1); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.15); }
+  .tag--blue { background: rgba(59,130,246,0.1); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.15); }
+  .tag--emerald { background: rgba(16,185,129,0.1); color: var(--accent-emerald); border: 1px solid rgba(16,185,129,0.15); }
+  .tag--violet { background: rgba(139,92,246,0.1); color: var(--accent-violet); border: 1px solid rgba(139,92,246,0.15); }
+  .tag--rose { background: rgba(244,63,94,0.1); color: var(--accent-rose); border: 1px solid rgba(244,63,94,0.15); }
+  .tag--cyan { background: rgba(6,182,212,0.1); color: var(--accent-cyan); border: 1px solid rgba(6,182,212,0.15); }
+  .tag--dim { background: rgba(71,85,105,0.15); color: var(--accent-slate); border: 1px solid rgba(71,85,105,0.2); }
+
+  /* ── FLOW ARROWS ── */
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+  }
+  .flow-arrow .line {
+    width: 2px;
+    height: 28px;
+    position: relative;
+  }
+  .flow-arrow .line::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1px;
+  }
+  .flow-arrow .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+  .flow-arrow--up .line::before { background: linear-gradient(to top, var(--border), var(--border-glow)); }
+  .flow-arrow--down .line::before { background: linear-gradient(to bottom, var(--border), var(--border-glow)); }
+
+  .flow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.1rem 0;
+  }
+  .flow-container .flow-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .flow-chevron {
+    color: var(--border-glow);
+    font-size: 0.8rem;
+    line-height: 1;
+  }
+  .flow-chevron.up { transform: rotate(180deg); }
+
+  /* ── CONTEXT DOCS TABLE ── */
+  .context-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.72rem;
+  }
+  .context-table th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .context-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(37,42,54,0.5);
+    color: var(--text);
+  }
+  .context-table tr:last-child td { border-bottom: none; }
+  .context-table .file {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent-emerald);
+  }
+
+  /* ── PRINCIPLE CALLOUT ── */
+  .principle {
+    background: linear-gradient(135deg, rgba(245,158,11,0.04), rgba(139,92,246,0.04));
+    border: 1px solid rgba(245,158,11,0.12);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 0.75rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .principle-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .principle-text {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .principle-text strong {
+    color: var(--text-bright);
+  }
+
+  /* ── SIDEBAR ANNOTATION ── */
+  .annotation {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    padding: 0.5rem 0;
+    text-align: center;
+  }
+
+  /* ── BLIND SPOTS ── */
+  .blindspots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .blind-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: rgba(244,63,94,0.06);
+    border: 1px dashed rgba(244,63,94,0.2);
+    color: rgba(244,63,94,0.6);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-left {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+  }
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .cards--3, .cards--4, .cards--5, .cards--6 { grid-template-columns: 1fr 1fr; }
+    .cards--2-1 { grid-template-columns: 1fr; }
+    .header, .diagram, .footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .header h1 { font-size: 1.8rem; }
+  }
+  @media (max-width: 600px) {
+    .cards--2, .cards--3, .cards--4, .cards--5, .cards--6 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-top">
+    <span class="header-badge">System Architecture</span>
+  </div>
+  <h1>OpenClaw <em>Executive Intelligence Layer</em></h1>
+  <p class="header-sub">
+    An automated business intelligence system that ingests company signals from email, Drive, Slack, GitHub, and Claude Code sessions — then produces daily analysis, living context documents, and a running company narrative.
+  </p>
+  <div class="header-meta">
+    <span>ClearLight AI</span>
+    <span>openclaw-2 &middot; GCE e2-medium &middot; us-central1</span>
+    <span>MiniMax M2.7 via OpenRouter</span>
+    <span>~$0.02/day LLM cost</span>
+  </div>
+</header>
+
+<!-- ── DIAGRAM ── -->
+<main class="diagram">
+
+  <!-- ═══ LAYER 1: INTERFACE ═══ -->
+  <section class="layer layer--interface">
+    <div class="layer-header">
+      <span class="layer-num">01</span>
+      <h2>Interface Layer</h2>
+      <span class="layer-desc">How you talk to the system</span>
+    </div>
+    <div class="layer-body">
+      <div class="cards cards--3">
+        <div class="card">
+          <span class="card-icon">💬</span>
+          <h3>Telegram</h3>
+          <p>Primary channel. DM allowlist with sender pairing. Partial streaming. Voice messages transcribed via OpenAI Whisper API.</p>
+          <span class="tag tag--blue">paired</span>
+          <span class="tag tag--dim">streaming: partial</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔌</span>
+          <h3>Slack</h3>
+          <p>Socket Mode connection. Open DM and group policy. Used for both queries and automated alerts from security audits.</p>
+          <span class="tag tag--blue">socket mode</span>
+          <span class="tag tag--dim">dm: open</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🖥️</span>
+          <h3>Manifest Dashboard</h3>
+          <p>Local web UI on port 2099 (SSH tunnel from Mac). Device pairing, conversation history, model routing insights.</p>
+          <span class="tag tag--dim">localhost:2099</span>
+          <span class="tag tag--dim">ssh tunnel</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOW -->
+  <div class="flow-container">
+    <div class="flow-col">
+      <div class="flow-chevron up">▾</div>
+      <span class="flow-arrow--down"><span class="line" style="display:inline-block; width:2px; height:20px; background: linear-gradient(var(--border), var(--border-glow)); border-radius:1px;"></span></span>
+      <div class="flow-chevron">▾</div>
+    </div>
+    <span class="annotation">Natural language queries hit the agent — agent searches QMD + context docs</span>
+    <div class="flow-col">
+      <div class="flow-chevron up">▾</div>
+      <span class="flow-arrow--up"><span class="line" style="display:inline-block; width:2px; height:20px; background: linear-gradient(var(--border-glow), var(--border)); border-radius:1px;"></span></span>
+      <div class="flow-chevron">▾</div>
+    </div>
+  </div>
+
+  <!-- ═══ LAYER 2: CONSOLIDATION ═══ -->
+  <section class="layer layer--consolidation">
+    <div class="layer-header">
+      <span class="layer-num">02</span>
+      <h2>Consolidation Layer</h2>
+      <span class="layer-desc">Where raw signals become intelligence</span>
+    </div>
+    <div class="layer-body">
+      <div class="cards cards--2-1">
+
+        <div class="card">
+          <span class="card-icon">📊</span>
+          <h3>Daily Digest</h3>
+          <p>
+            Runs at midnight UTC (8 AM Bali). Reads all new signals from the past 24 hours (~155K input tokens), produces a structured digest covering new threads, document changes, decisions, and action items. Updates living context docs.
+          </p>
+          <span class="tag tag--violet">consolidate-daily.py</span>
+          <span class="tag tag--amber">0 0 * * *</span>
+          <span class="tag tag--dim">~9 min runtime</span>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">📖</span>
+          <h3>Weekly Narrative</h3>
+          <p>
+            Monday heartbeat appends to <code>narrative.md</code> — the company story in prose. Captures momentum, shifts, and patterns not visible in daily granularity.
+          </p>
+          <span class="tag tag--violet">heartbeat</span>
+          <span class="tag tag--dim">Mondays</span>
+        </div>
+
+      </div>
+
+      <div class="principle">
+        <span class="principle-icon">◆</span>
+        <div class="principle-text">
+          <strong>Key principle:</strong> Scripts handle all I/O-heavy ingestion (zero LLM cost). The agent focuses only on reasoning — reading pre-fetched content and producing intelligence. Total daily LLM spend: ~$0.02.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOW -->
+  <div class="flow-container">
+    <div class="flow-col">
+      <div class="flow-chevron up">▾</div>
+      <span style="display:inline-block; width:2px; height:20px; background: linear-gradient(var(--border), var(--border-glow)); border-radius:1px;"></span>
+      <div class="flow-chevron">▾</div>
+    </div>
+    <span class="annotation">Digest reads from knowledge store — then updates context docs back into it</span>
+    <div class="flow-col">
+      <div class="flow-chevron up">▾</div>
+      <span style="display:inline-block; width:2px; height:20px; background: linear-gradient(var(--border-glow), var(--border)); border-radius:1px;"></span>
+      <div class="flow-chevron">▾</div>
+    </div>
+  </div>
+
+  <!-- ═══ LAYER 3: KNOWLEDGE STORE ═══ -->
+  <section class="layer layer--knowledge">
+    <div class="layer-header">
+      <span class="layer-num">03</span>
+      <h2>Knowledge Store</h2>
+      <span class="layer-desc">Searchable institutional memory</span>
+    </div>
+    <div class="layer-body">
+      <div class="cards cards--3" style="margin-bottom: 1rem;">
+        <div class="card">
+          <span class="card-icon">🔍</span>
+          <h3>QMD Index</h3>
+          <p>
+            Hybrid search engine (keyword + vector + LLM re-ranker). Indexes all <code>workspace/memory/**/*.md</code> files automatically. 1,100+ documents indexed. Re-indexes nightly at 23:00.
+          </p>
+          <span class="tag tag--emerald">hybrid search</span>
+          <span class="tag tag--dim">1,100+ docs</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🦎</span>
+          <h3>ByteRover Context Engine</h3>
+          <p>
+            Auto-retrieves relevant knowledge before each agent turn and curates new context after. Maintains a context tree at <code>.brv/context-tree/</code>. Connected to OpenRouter for curation LLM.
+          </p>
+          <span class="tag tag--emerald">v1.1.6</span>
+          <span class="tag tag--dim">auto-curate</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🧠</span>
+          <h3>Living Context Documents</h3>
+          <p>
+            Five maintained files that form the agent's "situational picture." Updated by the daily consolidation cycle and queryable at any time.
+          </p>
+          <span class="tag tag--emerald">memory/context/</span>
+        </div>
+      </div>
+
+      <table class="context-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+            <th>Scale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="file">people.md</td>
+            <td>People directory — team, clients, partners, contacts with roles and relationships</td>
+            <td>288 lines</td>
+          </tr>
+          <tr>
+            <td class="file">projects.md</td>
+            <td>Active and completed projects — status, stack, leads, dependencies</td>
+            <td>525 lines</td>
+          </tr>
+          <tr>
+            <td class="file">decisions.md</td>
+            <td>Decision log — date, who decided, what, rationale</td>
+            <td>160 lines</td>
+          </tr>
+          <tr>
+            <td class="file">narrative.md</td>
+            <td>Company story in prose — weekly entries capturing momentum and direction</td>
+            <td>299 lines</td>
+          </tr>
+          <tr>
+            <td class="file">sources.md</td>
+            <td>What the system knows and doesn't know — explicit blind spots</td>
+            <td>21 lines</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FLOW -->
+  <div class="flow-container">
+    <div class="flow-col">
+      <div class="flow-chevron up">▾</div>
+      <span style="display:inline-block; width:2px; height:20px; background: linear-gradient(var(--border), var(--border-glow)); border-radius:1px;"></span>
+      <div class="flow-chevron">▾</div>
+    </div>
+    <span class="annotation">Cron scripts write normalized markdown — QMD auto-indexes everything</span>
+  </div>
+
+  <!-- ═══ LAYER 4: INGESTION ═══ -->
+  <section class="layer layer--ingestion">
+    <div class="layer-header">
+      <span class="layer-num">04</span>
+      <h2>Ingestion Layer</h2>
+      <span class="layer-desc">Zero LLM cost — pure I/O scripts on cron</span>
+    </div>
+    <div class="layer-body">
+      <div class="cards cards--6">
+        <div class="card">
+          <span class="card-icon">✉️</span>
+          <h3>Gmail</h3>
+          <p>Inbox threads (excl. promos/social). Full thread context with both sides of conversations.</p>
+          <span class="tag tag--amber">*/30 min</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">📁</span>
+          <h3>Google Drive</h3>
+          <p>Proposals, agreements, meeting transcripts only. Scoped to relevant folders (172 files).</p>
+          <span class="tag tag--amber">*/30 min</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">💡</span>
+          <h3>Slack</h3>
+          <p>4 channels: clearlight-general, clearlight-ops, junxion-lead-enrichment, todt_collab.</p>
+          <span class="tag tag--amber">*/30 min</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">⌨️</span>
+          <h3>Claude Code</h3>
+          <p>Session transcripts + project memory files. 103 sessions across all ClearLight projects.</p>
+          <span class="tag tag--cyan">*/3 hrs (Mac)</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🌐</span>
+          <h3>Claude.ai Web</h3>
+          <p>122 conversations exported via browser console script. Manual trigger → rsync.</p>
+          <span class="tag tag--dim">manual</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">📦</span>
+          <h3>GitHub Repos</h3>
+          <p>All 15 ClearLightAI repos. Full clones with history, 485 .md files.</p>
+          <span class="tag tag--rose">disabled</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 1rem;">
+        <p style="font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.4rem;">
+          <strong style="color: var(--text);">Known blind spots</strong> — signals the system cannot yet ingest:
+        </p>
+        <div class="blindspots">
+          <span class="blind-tag">Notion</span>
+          <span class="blind-tag">Airtable</span>
+          <span class="blind-tag">Russell's sessions</span>
+          <span class="blind-tag">Slack #wizards-of-ai</span>
+          <span class="blind-tag">WhatsApp</span>
+          <span class="blind-tag">In-person convos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LAYER 5: INFRASTRUCTURE + SECURITY ═══ -->
+  <section class="layer" style="border-color: rgba(71,85,105,0.3);">
+    <div class="layer-header" style="border-bottom-color: rgba(71,85,105,0.15);">
+      <span class="layer-num" style="background: rgba(71,85,105,0.12); color: var(--accent-slate); border: 1px solid rgba(71,85,105,0.2);">⚙</span>
+      <h2>Infrastructure &amp; Security</h2>
+      <span class="layer-desc">The machine underneath</span>
+    </div>
+    <div class="layer-body">
+      <div class="cards cards--4">
+        <div class="card">
+          <span class="card-icon">🖧</span>
+          <h3>GCE VM</h3>
+          <p>openclaw-2, e2-medium (4 GB / 2 vCPU). Ubuntu 24.04, us-central1-a. Static IP. ~$38/mo.</p>
+          <span class="tag tag--dim">systemd user service</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🤖</span>
+          <h3>OpenClaw Gateway</h3>
+          <p>v2026.4.2. Auto-updates daily (5 AM UTC, --ignore-scripts). Manifest plugin for routing. Hardened systemd unit.</p>
+          <span class="tag tag--dim">npm -g</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔑</span>
+          <h3>Auth &amp; Access</h3>
+          <p>Google SA with domain delegation. OpenRouter API key. SSH key-only (port 2233). fail2ban + UFW.</p>
+          <span class="tag tag--dim">gws-cli</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🛡️</span>
+          <h3>Daily Security Audit</h3>
+          <p>OSV.dev + pip-audit + file integrity scan. Agent interprets findings, alerts to Telegram/Slack/email if critical.</p>
+          <span class="tag tag--amber">5:15 AM UTC</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-left">
+    ClearLight AI — Executive Intelligence Layer v1 — Dogfooding before client deployment
+  </div>
+  <div class="footer-right">
+    Deployed 2026-04-01 &middot; openclaw-2 &middot; MiniMax M2.7
+  </div>
+</footer>
+
+</body>
+</html>
