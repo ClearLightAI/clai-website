@@ -20,7 +20,7 @@ ClearLight AI company website — a marketing/landing page for clearlightai.com.
 
 ## Project Status
 
-First draft deployed to Netlify. Current page sections: Hero, Services (3 cards), Proof/Results (3 client cards), Footer CTA. Starfield canvas animation with cursor-following purple glow. ElevenLabs AI Profit Wizard voice widget embedded as floating bubble.
+First draft deployed to Netlify. Current page sections: Hero, Services (3 cards), Proof/Results (3 client cards), Footer CTA. Starfield canvas animation with cursor-following purple glow. ElevenLabs Audit Wizard voice widget embedded as floating bubble (pinned to v2 branch via `branch-id` attribute — dashboard routing % does NOT apply to embeds).
 
 ## Hosting & Deployment
 
@@ -29,7 +29,7 @@ First draft deployed to Netlify. Current page sections: Hero, Services (3 cards)
 - **Domain:** clearlightai.com (DNS managed via Cloudflare)
 - **Publish directory:** `dist` (Astro default)
 - **Key external URLs:**
-  - `audit.clearlightai.com` — AI Profit Wizard (free audit lead magnet, ElevenLabs voice agent)
+  - `audit.clearlightai.com` — Cloudflare 301 → ElevenLabs talk-to page (must include `branch_id` param for correct branch)
   - `chat.clearlightai.com` — ChatWidget backend (not linked from website)
   - `n8n.clearlightai.com` — n8n workflows (not linked from website)
 
