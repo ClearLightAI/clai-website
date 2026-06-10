@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Video poster placeholder — a word from Russell">
+  <defs>
+    <radialGradient id="vp-bg" cx="38%" cy="34%" r="85%">
+      <stop offset="0%" stop-color="#231a55"/>
+      <stop offset="48%" stop-color="#16143f"/>
+      <stop offset="100%" stop-color="#0d0c2b"/>
+    </radialGradient>
+    <radialGradient id="vp-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#725ba7" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#725ba7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vp-gold" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e5b673" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#e5b673" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="vp-arc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4b9ed7"/>
+      <stop offset="50%" stop-color="#725ba7"/>
+      <stop offset="100%" stop-color="#4b9ed7"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#vp-bg)"/>
+  <ellipse cx="430" cy="250" rx="520" ry="360" fill="url(#vp-glow)"/>
+  <ellipse cx="980" cy="560" rx="420" ry="300" fill="url(#vp-gold)"/>
+
+  <!-- faint grid -->
+  <g opacity="0.05" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="120" x2="1280" y2="120"/>
+    <line x1="0" y1="240" x2="1280" y2="240"/>
+    <line x1="0" y1="360" x2="1280" y2="360"/>
+    <line x1="0" y1="480" x2="1280" y2="480"/>
+    <line x1="0" y1="600" x2="1280" y2="600"/>
+    <line x1="160" y1="0" x2="160" y2="720"/>
+    <line x1="320" y1="0" x2="320" y2="720"/>
+    <line x1="480" y1="0" x2="480" y2="720"/>
+    <line x1="640" y1="0" x2="640" y2="720"/>
+    <line x1="800" y1="0" x2="800" y2="720"/>
+    <line x1="960" y1="0" x2="960" y2="720"/>
+    <line x1="1120" y1="0" x2="1120" y2="720"/>
+  </g>
+
+  <!-- sunrise arc echo from logo -->
+  <ellipse cx="640" cy="900" rx="700" ry="430" fill="none" stroke="url(#vp-arc)" stroke-width="3" opacity="0.45"/>
+
+  <!-- CL monogram -->
+  <text x="640" y="330" text-anchor="middle" font-family="Garet, Arial, sans-serif" font-weight="300" font-size="150" letter-spacing="14" fill="#ffffff" opacity="0.92">CL</text>
+
+  <!-- framing label -->
+  <text x="640" y="430" text-anchor="middle" font-family="Garet, Arial, sans-serif" font-weight="600" font-size="26" letter-spacing="6" fill="#e5b673" opacity="0.85">A WORD FROM RUSSELL</text>
+  <text x="640" y="472" text-anchor="middle" font-family="'Nunito Sans', Arial, sans-serif" font-weight="400" font-size="20" letter-spacing="2" fill="#f0eff5" opacity="0.45">video poster placeholder</text>
+</svg>

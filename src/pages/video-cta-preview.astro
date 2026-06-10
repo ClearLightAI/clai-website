@@ -1,0 +1,80 @@
+---
+/**
+ * THROWAWAY PREVIEW — video CTA section, two variants side-by-side in real context.
+ * Delete before shipping. Not linked from anywhere.
+ *
+ *   Variant 1 — Floating pill (hero-gradient block, ~90% width)
+ *   Variant 2 — Split two-tile bento (glass tiles)
+ *
+ * Hero is included above so you can judge how each reads directly below it.
+ */
+import Layout from "../layouts/Layout.astro";
+import Starfield from "../components/Starfield.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import VideoCtaPill from "../components/VideoCtaPill.astro";
+import VideoCtaBento from "../components/VideoCtaBento.astro";
+---
+
+<Layout title="Video CTA — preview">
+  <Starfield />
+  <Nav />
+  <Hero />
+
+  <div class="prev-label">
+    <span class="prev-num">Variant 1</span>
+    <span class="prev-name">Floating pill &middot; hero-gradient block</span>
+  </div>
+  <VideoCtaPill />
+
+  <div class="prev-divider"></div>
+
+  <div class="prev-label">
+    <span class="prev-num">Variant 2</span>
+    <span class="prev-name">Split two-tile bento &middot; glass tiles</span>
+  </div>
+  <VideoCtaBento />
+
+  <div class="prev-spacer"></div>
+</Layout>
+
+<style>
+  .prev-label {
+    position: relative;
+    z-index: 10;
+    max-width: 1180px;
+    width: 90%;
+    margin: 40px auto -8px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding-left: 4px;
+  }
+  .prev-num {
+    font-family: "Garet", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #e5b673;
+    border: 1px solid rgba(229, 182, 115, 0.4);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .prev-name {
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.02em;
+  }
+  .prev-divider {
+    position: relative;
+    z-index: 10;
+    max-width: 1180px;
+    width: 90%;
+    margin: 8px auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  }
+  .prev-spacer { height: 80px; }
+</style>

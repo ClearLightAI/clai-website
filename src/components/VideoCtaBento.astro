@@ -1,0 +1,264 @@
+---
+/**
+ * VARIANT 2 — Split two-tile bento.
+ *
+ * Two side-by-side glass tiles (the audit-report / publish-page .tile language):
+ *   - LEFT  (~58%): video tile, 16:9 self-hosted player with poster + play overlay
+ *   - RIGHT (~42%): CTA tile with a gold->purple->blue accent strip down its left
+ *                   edge, blue label, headline, gold button, proof micro-line.
+ *
+ * Tiles sit on the page's own starfield background (no internal hero gradient),
+ * so this variant reads as a deliberate bento moment rather than a banner.
+ */
+interface Props {
+  poster?: string;
+  videoSrc?: string;
+  href?: string;
+}
+const {
+  poster = "/video/russell-poster.svg",
+  videoSrc = "",
+  href = "https://audit.clearlightai.com",
+} = Astro.props;
+---
+
+<section class="relative z-10 px-6 py-16 md:py-20">
+  <div class="vctb-wrap mx-auto">
+    <!-- LEFT: video tile -->
+    <div class="vctb-tile vctb-video">
+      <div class="vctb-orb" aria-hidden="true"></div>
+      <button class="vctb-player" type="button" aria-label="Play video from Russell" data-video-src={videoSrc}>
+        <img class="vctb-poster" src={poster} alt="A word from Russell" loading="lazy" />
+        <span class="vctb-play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor" />
+          </svg>
+        </span>
+        <span class="vctb-duration">1:42</span>
+      </button>
+      <p class="vctb-caption">
+        <span class="vctb-dot" aria-hidden="true"></span>
+        A word from Russell &middot; 1 min 42 sec
+      </p>
+    </div>
+
+    <!-- RIGHT: CTA tile -->
+    <div class="vctb-tile vctb-cta">
+      <span class="vctb-strip" aria-hidden="true"></span>
+      <p class="vctb-label">Trusted by 9-figure entrepreneurs</p>
+      <h2 class="vctb-head">
+        Take the same process<br />
+        <span class="vctb-gold">the big players run.</span>
+      </h2>
+      <p class="vctb-sub">
+        The AI Readiness Audit is the first move every serious business makes. Run yours, free.
+      </p>
+      <a class="vctb-btn" href={href}>
+        Start Your Free Audit
+        <span class="vctb-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <p class="vctb-micro">10 minutes &middot; No cost &middot; $500 of value</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .vctb-wrap {
+    width: 90%;
+    max-width: 1180px;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 22px;
+    align-items: stretch;
+  }
+
+  /* ===== shared tile ===== */
+  .vctb-tile {
+    position: relative;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 24px;
+    overflow: hidden;
+    backdrop-filter: blur(2px);
+    transition: border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+  }
+
+  /* ===== video tile ===== */
+  .vctb-video { padding: 18px; display: flex; flex-direction: column; }
+  .vctb-orb {
+    position: absolute;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    filter: blur(80px);
+    background: rgba(114, 91, 167, 0.3);
+    top: -120px; left: -80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .vctb-player {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0;
+    cursor: pointer;
+    background: #0d0c2b;
+  }
+  .vctb-poster {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  }
+  .vctb-player:hover .vctb-poster { transform: scale(1.03); filter: brightness(1.05); }
+
+  .vctb-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 78px; height: 78px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(229, 182, 115, 0.95);
+    color: #13123b;
+    box-shadow: 0 12px 40px -8px rgba(229, 182, 115, 0.7);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  }
+  .vctb-play svg { width: 31px; height: 31px; margin-left: 3px; }
+  .vctb-player:hover .vctb-play {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 16px 50px -8px rgba(229, 182, 115, 0.85);
+  }
+  .vctb-play::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(229, 182, 115, 0.6);
+    animation: vctbPulse 2.6s ease-out infinite;
+  }
+  @keyframes vctbPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    70% { transform: scale(1.5); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .vctb-duration {
+    position: absolute;
+    bottom: 12px; right: 12px;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+    color: #fff;
+    background: rgba(13, 12, 43, 0.7);
+    padding: 4px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+  .vctb-caption {
+    position: relative;
+    z-index: 1;
+    margin-top: 14px;
+    padding: 0 6px;
+    font-size: 0.8rem;
+    color: rgba(240, 239, 245, 0.55);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .vctb-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #e5b673;
+    box-shadow: 0 0 0 4px rgba(229, 182, 115, 0.18);
+  }
+
+  /* ===== CTA tile ===== */
+  .vctb-cta {
+    padding: clamp(28px, 3.5vw, 44px);
+    padding-left: clamp(34px, 4vw, 50px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .vctb-cta:hover {
+    border-color: rgba(229, 182, 115, 0.4);
+    box-shadow: 0 24px 60px -20px rgba(114, 91, 167, 0.55);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .vctb-strip {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, #e5b673 0%, #725ba7 50%, #4b9ed7 100%);
+  }
+  .vctb-label {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #4b9ed7;
+    margin-bottom: 16px;
+  }
+  .vctb-head {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .vctb-gold { color: #e5b673; }
+  .vctb-sub {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: rgba(240, 239, 245, 0.78);
+    margin-bottom: 26px;
+  }
+  .vctb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    background: #e5b673;
+    color: #13123b;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    padding: 16px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 10px 30px -8px rgba(229, 182, 115, 0.55);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background 0.22s ease;
+  }
+  .vctb-btn:hover {
+    background: #efc98c;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 42px -8px rgba(229, 182, 115, 0.7);
+  }
+  .vctb-arrow { transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
+  .vctb-btn:hover .vctb-arrow { transform: translateX(4px); }
+  .vctb-micro {
+    margin-top: 16px;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(229, 182, 115, 0.85);
+  }
+
+  /* ===== responsive ===== */
+  @media (max-width: 860px) {
+    .vctb-wrap { width: 100%; grid-template-columns: 1fr; gap: 18px; }
+    .vctb-cta { text-align: center; align-items: center; }
+    .vctb-btn { align-self: center; }
+    .vctb-strip { width: 100%; height: 6px; bottom: auto; }
+    .vctb-cta { padding-top: 40px; }
+  }
+</style>
