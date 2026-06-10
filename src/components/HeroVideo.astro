@@ -152,15 +152,23 @@ const {
     border-radius: 50%;
     display: grid;
     place-items: center;
-    background: rgba(229, 182, 115, 0.95);
-    color: #13123b;
-    box-shadow: 0 12px 40px -8px rgba(229, 182, 115, 0.7);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    background: rgba(229, 182, 115, 0.38);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1.5px solid rgba(229, 182, 115, 0.65);
+    color: #fff;
+    box-shadow: 0 8px 30px -10px rgba(13, 12, 43, 0.6);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.35s ease, box-shadow 0.35s ease;
   }
-  .hv-play svg { width: 30px; height: 30px; margin-left: 3px; }
+  .hv-play svg {
+    width: 30px; height: 30px; margin-left: 3px;
+    filter: drop-shadow(0 1px 3px rgba(13, 12, 43, 0.45));
+  }
   .hv-player:hover .hv-play {
     transform: translate(-50%, -50%) scale(1.08);
-    box-shadow: 0 16px 50px -8px rgba(229, 182, 115, 0.85);
+    background: rgba(229, 182, 115, 0.92);
+    color: #13123b;
+    box-shadow: 0 16px 50px -8px rgba(229, 182, 115, 0.8);
   }
   .hv-play::after {
     content: "";
