@@ -20,7 +20,23 @@ ClearLight AI company website — a marketing/landing page for clearlightai.com.
 
 ## Project Status
 
-First draft deployed to Netlify. Current page sections: Hero, Services (3 cards), Proof/Results (3 client cards), Footer CTA. Starfield canvas animation with cursor-following purple glow. ElevenLabs Audit Wizard voice widget embedded as floating bubble (pinned to v2 branch via `branch-id` attribute — dashboard routing % does NOT apply to embeds).
+Live on Netlify. The homepage (June 2026 redesign) brings the video above the fold and applies ClearLight **bento** theming throughout:
+
+- **`HeroVideo`** — centered title up top (`What's the ROI on AI in your business?`), then a two-column row: a self-hosted video in a glass bento tile (left) + the "Take the same process / 9-figure entrepreneurs run." CTA copy + gold button (right). Click-to-play (no autoplay); the player swaps in a real `<video>` on click. Video is served from `public/video/` (see Video assets below).
+- **`ServicesBento`** — 3 glass tiles (hover-lift, accent strips, numbered labels); flagship audit card gets a gold border + pill. Tablet (≤860px) = 2-col with flagship spanning full width; ≤560px = single column.
+- **`FooterBento`** — final CTA as a gradient bento tile.
+- Starfield canvas (cursor-following purple glow) + ElevenLabs Audit Wizard floating widget (pinned to v2 branch via `branch-id` — dashboard routing % does NOT apply to embeds).
+- The old `Hero`, `Services`, `Footer`, `VideoCtaPill` components were removed when this shipped. `Proof.astro` remains but is still hidden (`<!-- <Proof /> -->`) pending updated featured businesses.
+
+**`/book`** — booking landing page: Russell's headshot + brief header + his Calendly inline widget (`calendly.com/russellprice/clearlightai`) embedded in a glass bento tile, consultants-toolkit style. Not yet linked from the site nav/footer.
+
+### CTA buttons are GOLD site-wide
+All primary CTA buttons (nav, hero, footer) use the canonical gold treatment (`#e5b673` bg, navy `#13123b` text) — migrated from the old purple gradient to match the bento/brand system. The hero headline's purple *gradient text* ("in your business?") stays purple — that's a text treatment, not a button.
+
+### Video assets
+- Served web video: `public/video/2026_june_landing.mp4` (H.264/AAC, faststart, ~14MB). **Transcode source `.mov` masters with ffmpeg** — the raw HEVC/PCM `.mov` (in gitignored `videos/`) won't play in browsers and is >100MB (GitHub rejects). Preset: `-c:v libx264 -crf 23 -preset medium -movflags +faststart -c:a aac -b:a 128k`.
+- Poster/thumbnail: `public/video/russell-poster.jpg` (a frame pulled from the video, 1280×720). It's a separate still — re-trimming the video does NOT require regenerating the poster.
+- `videos/` (raw masters) is gitignored; only the transcoded `public/video/*.mp4` is committed.
 
 ## Hosting & Deployment
 
@@ -28,8 +44,10 @@ First draft deployed to Netlify. Current page sections: Hero, Services (3 cards)
 - **Repo:** github.com/ClearLightAI/clai-website (public)
 - **Domain:** clearlightai.com (DNS managed via Cloudflare)
 - **Publish directory:** `dist` (Astro default)
+- **Internal routes:** `/` (homepage), `/book` (Calendly booking page)
 - **Key external URLs:**
   - `audit.clearlightai.com` — Cloudflare 301 → ElevenLabs talk-to page (must include `branch_id` param for correct branch)
+  - `calendly.com/russellprice/clearlightai` — Russell's booking calendar (embedded on `/book`; same link the audit-report CTAs use)
   - `chat.clearlightai.com` — ChatWidget backend (not linked from website)
   - `n8n.clearlightai.com` — n8n workflows (not linked from website)
 
