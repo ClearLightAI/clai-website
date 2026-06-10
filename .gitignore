@@ -7,3 +7,15 @@ dist/
 stitch outputs/
 screenshots/
 .playwright-mcp/
+.superpowers/
+
+# Source video masters (transcoded MP4s in public/video/ are committed; raw .mov/.movs are not)
+videos/
+public/video/sample.mp4
+
+# Throwaway preview/test artifacts
+/*.png
+src/starfield-test.html
+.build/
+inspo/
+reports/

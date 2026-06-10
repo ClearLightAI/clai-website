@@ -1,0 +1,287 @@
+---
+/**
+ * HeroVideo — above-the-fold hero with the video brought up.
+ *
+ * Layout (top to bottom):
+ *   1. Centered title "What's the ROI on AI in your business?" (~20% larger
+ *      than the original hero, gradient-text punchline preserved).
+ *   2. A two-column row:
+ *        LEFT  — video in a glass bento tile (gold-glow well, play overlay)
+ *        RIGHT — the "Take the same process..." CTA copy + gold button.
+ *
+ * Removed vs the old hero: the "AI Readiness Assessment" pill, the
+ * "Take the same assessment..." subtitle, and the standalone audit button.
+ *
+ * The video is self-hosted; videoSrc is a placeholder prop until Russell's
+ * MP4 is hosted (click-to-play swaps in a real <video>).
+ */
+interface Props {
+  poster?: string;
+  videoSrc?: string;
+  href?: string;
+}
+const {
+  poster = "/video/russell-poster.svg",
+  videoSrc = "",
+  href = "https://audit.clearlightai.com",
+} = Astro.props;
+---
+
+<section class="hv-section relative z-10 px-6 pt-28 pb-16">
+  <div class="hv-wrap mx-auto">
+    <!-- Title -->
+    <h1 class="hv-title animate-fade-up delay-1">
+      What's the ROI on AI
+      <span style="background: linear-gradient(90deg, #745aa5, #7789d9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">in your business?</span>
+    </h1>
+
+    <!-- Video + CTA row -->
+    <div class="hv-row animate-fade-up delay-2">
+      <!-- LEFT: video glass tile -->
+      <div class="hv-video-tile">
+        <div class="hv-orb" aria-hidden="true"></div>
+        <button class="hv-player" type="button" aria-label="Play video from Russell" data-video-src={videoSrc}>
+          <img class="hv-poster" src={poster} alt="A word from Russell" loading="lazy" />
+          <span class="hv-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="hv-duration">1:42</span>
+        </button>
+        <p class="hv-caption">
+          <span class="hv-dot" aria-hidden="true"></span>
+          A word from Russell &middot; 1 min 42 sec
+        </p>
+      </div>
+
+      <!-- RIGHT: CTA copy -->
+      <div class="hv-cta">
+        <h2 class="hv-cta-head">
+          Take the same process<br />
+          <span class="hv-gold">9-figure entrepreneurs run.</span>
+        </h2>
+        <p class="hv-cta-sub">
+          Russell walks you through what the AI Readiness Audit uncovers, and why it's the
+          first move every serious business should make. Then run yours, free.
+        </p>
+        <a class="hv-btn" href={href}>
+          Start Your Free Audit
+          <span class="hv-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <p class="hv-micro">10 minutes &middot; No cost &middot; $500 of value</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hv-wrap { width: 92%; max-width: 1180px; }
+
+  /* ===== title ===== */
+  .hv-title {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    /* ~20% larger than the original, then -10% per request */
+    font-size: clamp(2.7rem, 6.48vw, 4.86rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-align: center;
+    max-width: 16ch;
+    /* cushion above the title */
+    margin: clamp(20px, 4vw, 48px) auto clamp(36px, 5vw, 60px);
+  }
+
+  /* ===== video + CTA row ===== */
+  .hv-row {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(28px, 4vw, 52px);
+    align-items: center;
+  }
+
+  /* ----- video glass tile ----- */
+  .hv-video-tile {
+    position: relative;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 24px;
+    padding: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+  }
+  .hv-orb {
+    position: absolute;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    filter: blur(80px);
+    background: rgba(114, 91, 167, 0.3);
+    top: -120px; left: -80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hv-player {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0;
+    cursor: pointer;
+    background: #0d0c2b;
+  }
+  .hv-poster {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  }
+  .hv-player:hover .hv-poster { transform: scale(1.03); filter: brightness(1.05); }
+
+  .hv-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 76px; height: 76px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(229, 182, 115, 0.95);
+    color: #13123b;
+    box-shadow: 0 12px 40px -8px rgba(229, 182, 115, 0.7);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  }
+  .hv-play svg { width: 30px; height: 30px; margin-left: 3px; }
+  .hv-player:hover .hv-play {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 16px 50px -8px rgba(229, 182, 115, 0.85);
+  }
+  .hv-play::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(229, 182, 115, 0.6);
+    animation: hvPulse 2.6s ease-out infinite;
+  }
+  @keyframes hvPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    70% { transform: scale(1.5); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .hv-duration {
+    position: absolute;
+    bottom: 12px; right: 12px;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+    color: #fff;
+    background: rgba(13, 12, 43, 0.7);
+    padding: 4px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+  .hv-caption {
+    position: relative;
+    z-index: 1;
+    margin-top: 12px;
+    padding: 0 6px 4px;
+    font-size: 0.8rem;
+    color: rgba(240, 239, 245, 0.55);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .hv-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #e5b673;
+    box-shadow: 0 0 0 4px rgba(229, 182, 115, 0.18);
+  }
+
+  /* ----- CTA copy ----- */
+  .hv-cta { min-width: 0; }
+  .hv-cta-head {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .hv-gold { color: #e5b673; }
+  .hv-cta-sub {
+    font-size: 1rem;
+    line-height: 1.62;
+    color: rgba(240, 239, 245, 0.78);
+    max-width: 440px;
+    margin-bottom: 26px;
+  }
+  .hv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #e5b673;
+    color: #13123b;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    padding: 16px 34px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 10px 30px -8px rgba(229, 182, 115, 0.55);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background 0.22s ease;
+  }
+  .hv-btn:hover {
+    background: #efc98c;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 42px -8px rgba(229, 182, 115, 0.7);
+  }
+  .hv-arrow { transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
+  .hv-btn:hover .hv-arrow { transform: translateX(4px); }
+  .hv-micro {
+    margin-top: 16px;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(229, 182, 115, 0.85);
+  }
+
+  /* ===== responsive ===== */
+  @media (max-width: 860px) {
+    .hv-wrap { width: 100%; }
+    .hv-row { grid-template-columns: 1fr; gap: 28px; }
+    .hv-cta { text-align: center; }
+    .hv-cta-sub { margin-left: auto; margin-right: auto; }
+    .hv-caption { justify-content: center; }
+  }
+</style>
+
+<script>
+  // Click-to-play: swap the poster/overlay for a real <video> on click.
+  document.querySelectorAll<HTMLButtonElement>(".hv-player").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const src = btn.dataset.videoSrc;
+      if (!src) return; // placeholder state — no video wired yet
+      const video = document.createElement("video");
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.setAttribute("playsinline", "");
+      video.className = "hv-video";
+      video.style.cssText =
+        "width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;background:#0d0c2b;";
+      btn.replaceWith(video);
+      video.play().catch(() => {/* user can press the native control */});
+    });
+  });
+</script>
