@@ -267,3 +267,25 @@ const {
     .vcta-play svg { width: 26px; height: 26px; }
   }
 </style>
+
+<script>
+  // Click-to-play: swap the poster/overlay for a real <video> on click.
+  // No autoplay on load; autoplay here is user-initiated (allowed) and expected.
+  document.querySelectorAll<HTMLButtonElement>(".vcta-player").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const src = btn.dataset.videoSrc;
+      if (!src) return; // placeholder state — no video wired yet
+      const video = document.createElement("video");
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.setAttribute("playsinline", "");
+      video.className = "vcta-video";
+      video.style.cssText =
+        "width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;background:#0d0c2b;";
+      btn.replaceWith(video);
+      video.play().catch(() => {/* user can press the native control */});
+    });
+  });
+</script>

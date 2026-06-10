@@ -1,0 +1,209 @@
+---
+/**
+ * Services — bento treatment.
+ *
+ * Rebuild of the 3-card services grid in the ClearLight bento language
+ * (audit-report / publish-page system): glass .tile cards with hover-lift,
+ * a gold->purple->blue accent strip per card, blue numbered labels, and the
+ * flagship (audit) card carrying a gold-tinted border + gold strip so it reads
+ * as the hero offer.
+ *
+ * Brand fix: original copy used em dashes (banned). Rewritten with plain dashes.
+ */
+const services = [
+  {
+    num: "01",
+    icon: "🎯",
+    name: "AI Readiness Audit",
+    desc: "Structured assessment of your operations. Where AI saves the most time and money, and what to build first.",
+    flagship: true,
+    tag: "Flagship",
+  },
+  {
+    num: "02",
+    icon: "🧠",
+    name: "Company Brain",
+    desc: "Your internal knowledge, policies, SOPs, documents, made instantly searchable by AI. Built on your data.",
+    flagship: false,
+  },
+  {
+    num: "03",
+    icon: "⚡",
+    name: "AI Agents & Voice",
+    desc: "Custom agents for lead qualification, scheduling, support, and data synthesis. Voice and text. 24/7.",
+    flagship: false,
+  },
+];
+---
+
+<section class="relative z-10 py-24 px-6">
+  <div class="svcb-wrap mx-auto">
+    <div class="svcb-head">
+      <p class="svcb-eyebrow">What we build</p>
+      <h2 class="svcb-title">
+        From audit to <span class="svcb-gold">implementation</span>
+      </h2>
+    </div>
+
+    <div class="svcb-grid">
+      {services.map((s) => (
+        <div class={`svcb-tile ${s.flagship ? "is-flagship" : ""}`}>
+          <span class="svcb-strip" aria-hidden="true"></span>
+          <div class="svcb-orb" aria-hidden="true"></div>
+          <div class="svcb-top">
+            <span class="svcb-chip">{s.icon}</span>
+            <span class="svcb-num">{s.num}</span>
+          </div>
+          {s.tag && <span class="svcb-tag">{s.tag}</span>}
+          <h3 class="svcb-name">{s.name}</h3>
+          <p class="svcb-desc">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .svcb-wrap { width: 90%; max-width: 1180px; }
+
+  .svcb-head { text-align: center; margin-bottom: 56px; }
+  .svcb-eyebrow {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #4b9ed7;
+    margin-bottom: 14px;
+  }
+  .svcb-title {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .svcb-gold { color: #e5b673; }
+
+  .svcb-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* ===== tile ===== */
+  .svcb-tile {
+    position: relative;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 22px;
+    padding: 36px 32px;
+    overflow: hidden;
+    backdrop-filter: blur(2px);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease,
+      box-shadow 0.5s ease, background 0.5s ease;
+  }
+  .svcb-tile:hover {
+    transform: translateY(-8px);
+    border-color: rgba(229, 182, 115, 0.4);
+    box-shadow: 0 24px 60px -20px rgba(114, 91, 167, 0.55);
+    background: rgba(255, 255, 255, 0.055);
+  }
+  .svcb-tile.is-flagship {
+    border-color: rgba(229, 182, 115, 0.3);
+    background: rgba(229, 182, 115, 0.04);
+  }
+
+  .svcb-strip {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #4b9ed7 0%, #725ba7 50%, #4b9ed7 100%);
+  }
+  .is-flagship .svcb-strip {
+    background: linear-gradient(180deg, #e5b673 0%, #725ba7 60%, #4b9ed7 100%);
+  }
+
+  .svcb-orb {
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    filter: blur(70px);
+    background: rgba(114, 91, 167, 0.25);
+    top: -110px; right: -80px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .svcb-tile:hover .svcb-orb { opacity: 1; }
+  .is-flagship .svcb-orb { background: rgba(229, 182, 115, 0.18); opacity: 0.7; }
+
+  .svcb-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .svcb-chip {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: inline-grid;
+    place-items: center;
+    font-size: 1.4rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .is-flagship .svcb-chip {
+    background: rgba(229, 182, 115, 0.1);
+    border-color: rgba(229, 182, 115, 0.3);
+  }
+  .svcb-num {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.22);
+  }
+
+  .svcb-tag {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #e5b673;
+    background: rgba(229, 182, 115, 0.12);
+    border: 1px solid rgba(229, 182, 115, 0.35);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .svcb-name {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .svcb-desc {
+    position: relative;
+    z-index: 1;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(240, 239, 245, 0.6);
+  }
+
+  /* ===== responsive ===== */
+  @media (max-width: 860px) {
+    .svcb-wrap { width: 100%; }
+    .svcb-grid { grid-template-columns: 1fr; gap: 16px; }
+  }
+</style>

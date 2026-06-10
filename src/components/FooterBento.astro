@@ -1,0 +1,134 @@
+---
+/**
+ * Footer — bento treatment.
+ *
+ * The final CTA becomes a bento CTA tile echoing the audit-report `.cta` block:
+ * hero gradient, gold-tinted border, atmosphere orbs, gold button. The bottom
+ * bar (copyright) is preserved.
+ */
+const href = "https://audit.clearlightai.com";
+---
+
+<footer class="relative z-10">
+  <!-- Final CTA — bento tile -->
+  <div class="ftrb-section px-6">
+    <div class="ftrb-cta mx-auto">
+      <div class="ftrb-orb ftrb-orb-1" aria-hidden="true"></div>
+      <div class="ftrb-orb ftrb-orb-2" aria-hidden="true"></div>
+      <div class="ftrb-grid-overlay" aria-hidden="true"></div>
+
+      <div class="ftrb-inner">
+        <p class="ftrb-eyebrow">Your next move</p>
+        <h2 class="ftrb-head">
+          Ready to find your <span class="ftrb-gold">AI wins?</span>
+        </h2>
+        <p class="ftrb-sub">
+          Start with a free assessment. No forms, no sales pitch. Just clarity on where AI fits.
+        </p>
+        <a class="ftrb-btn" href={href}>
+          Start Free Audit
+          <span class="ftrb-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/[0.04] py-6 px-6">
+    <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-text-tertiary text-xs">
+      <span>&copy; 2026 ClearLight AI. All rights reserved.</span>
+      <span>Built for performance. Architected for scale.</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftrb-section { padding: 40px 24px 64px; }
+
+  .ftrb-cta {
+    position: relative;
+    width: 90%;
+    max-width: 1180px;
+    border-radius: 28px;
+    padding: clamp(48px, 6vw, 72px) clamp(28px, 5vw, 64px);
+    overflow: hidden;
+    text-align: center;
+    background: linear-gradient(165deg, #725ba7 0%, #13123b 55%, #0d0c2b 100%);
+    border: 1px solid rgba(229, 182, 115, 0.22);
+    box-shadow: 0 40px 120px -40px rgba(114, 91, 167, 0.6);
+  }
+
+  .ftrb-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .ftrb-orb-1 { width: 360px; height: 360px; background: rgba(229,182,115,0.16); top: -140px; left: 10%; }
+  .ftrb-orb-2 { width: 360px; height: 360px; background: rgba(75,158,215,0.18); bottom: -160px; right: 8%; }
+  .ftrb-grid-overlay {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, #000 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, #000 30%, transparent 80%);
+  }
+
+  .ftrb-inner { position: relative; z-index: 2; }
+  .ftrb-eyebrow {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #e5b673;
+    margin-bottom: 16px;
+  }
+  .ftrb-head {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .ftrb-gold { color: #e5b673; }
+  .ftrb-sub {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(240, 239, 245, 0.72);
+    max-width: 460px;
+    margin: 0 auto 30px;
+  }
+
+  .ftrb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #e5b673;
+    color: #13123b;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 16px 38px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 10px 30px -8px rgba(229, 182, 115, 0.55);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background 0.22s ease;
+  }
+  .ftrb-btn:hover {
+    background: #efc98c;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 42px -8px rgba(229, 182, 115, 0.7);
+  }
+  .ftrb-arrow { transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
+  .ftrb-btn:hover .ftrb-arrow { transform: translateX(4px); }
+
+  @media (max-width: 860px) {
+    .ftrb-cta { width: 100%; }
+  }
+</style>
