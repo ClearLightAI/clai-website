@@ -202,8 +202,15 @@ const services = [
   }
 
   /* ===== responsive ===== */
+  /* tablet: 2-up grid; flagship card spans the full width as the hero offer */
   @media (max-width: 860px) {
     .svcb-wrap { width: 100%; }
-    .svcb-grid { grid-template-columns: 1fr; gap: 16px; }
+    .svcb-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .svcb-tile.is-flagship { grid-column: 1 / -1; }
+  }
+  /* phone: single column */
+  @media (max-width: 560px) {
+    .svcb-grid { grid-template-columns: 1fr; }
+    .svcb-tile.is-flagship { grid-column: auto; }
   }
 </style>

@@ -1,0 +1,234 @@
+---
+/**
+ * /book — booking landing page.
+ *
+ * A focused, single-action page: a header tile (Russell's circular photo with a
+ * gold ring + brief heading) above the Calendly inline widget in a glass tile.
+ *
+ * Style: the consultants-toolkit bento language (navy/purple atmosphere orbs,
+ * faint grid, glass tiles, gold scarcity accents) on top of the site's own
+ * Layout + Starfield, so it inherits the real fonts (Garet / Nunito Sans) and
+ * background.
+ *
+ * Calendly: official inline-embed widget (widget.js + inline-widget div).
+ *   URL: https://calendly.com/russellprice/clearlightai
+ * Photo: live audit-report asset, same one the audit reports use.
+ */
+import Layout from "../layouts/Layout.astro";
+import Starfield from "../components/Starfield.astro";
+import Nav from "../components/Nav.astro";
+
+const CALENDLY_URL = "https://calendly.com/russellprice/clearlightai";
+const PHOTO_URL = "https://audit-report.clearlightai.com/assets/russell.jpg";
+---
+
+<Layout
+  title="Book a call with Russell | ClearLight AI"
+  description="30 minutes with Russell Price. He'll walk you through what AI can actually do in your business. No pitch deck, no pressure."
+>
+  <Starfield />
+  <Nav />
+
+  <!-- page-wide bento atmosphere -->
+  <div class="bk-atmosphere" aria-hidden="true">
+    <span class="bk-orb bk-orb-1"></span>
+    <span class="bk-orb bk-orb-2"></span>
+    <span class="bk-orb bk-orb-3"></span>
+  </div>
+
+  <main class="bk-page">
+    <!-- HEADER TILE -->
+    <section class="bk-tile bk-header">
+      <span class="bk-strip" aria-hidden="true"></span>
+      <div class="bk-photo-wrap">
+        <img class="bk-photo" src={PHOTO_URL} alt="Russell Price, ClearLight AI" width="148" height="148" />
+      </div>
+      <p class="bk-eyebrow">Book a strategy call</p>
+      <h1 class="bk-title">
+        30 minutes with <span class="bk-gold">Russell.</span>
+      </h1>
+      <p class="bk-sub">
+        He'll walk you through what a personalised AI front office looks like for your
+        business. No pitch deck, no pressure. Just a straight conversation about where
+        AI actually moves the needle for you.
+      </p>
+      <ul class="bk-points">
+        <li><span class="bk-dot" aria-hidden="true"></span>30 minutes, on your schedule</li>
+        <li><span class="bk-dot" aria-hidden="true"></span>Real talk, not a sales pitch</li>
+        <li><span class="bk-dot" aria-hidden="true"></span>Leave with clear next steps</li>
+      </ul>
+    </section>
+
+    <!-- CALENDLY TILE -->
+    <section class="bk-tile bk-cal">
+      <div
+        class="calendly-inline-widget"
+        data-url={`${CALENDLY_URL}?hide_gdpr_banner=1&background_color=141538&text_color=f0eff5&primary_color=e5b673`}
+        style="min-width:320px;height:1000px;"
+      >
+      </div>
+      <noscript>
+        <p class="bk-fallback">
+          Enable JavaScript to load the scheduler, or
+          <a href={CALENDLY_URL} target="_blank" rel="noopener">open Russell's calendar directly</a>.
+        </p>
+      </noscript>
+    </section>
+  </main>
+
+  <!-- Calendly inline embed script -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" async is:inline></script>
+</Layout>
+
+<style>
+  /* ===== page-wide atmosphere (bento) ===== */
+  .bk-atmosphere {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .bk-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    display: block;
+  }
+  .bk-orb-1 { width: 560px; height: 560px; background: rgba(114, 91, 167, 0.28); top: -180px; left: -140px; }
+  .bk-orb-2 { width: 480px; height: 480px; background: rgba(75, 158, 215, 0.15); top: 40%; right: -180px; }
+  .bk-orb-3 { width: 460px; height: 460px; background: rgba(229, 182, 115, 0.10); bottom: -160px; left: 10%; }
+
+  .bk-page {
+    position: relative;
+    z-index: 2;
+    max-width: 912px;
+    margin: 0 auto;
+    padding: 128px 24px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  /* ===== shared tile ===== */
+  .bk-tile {
+    position: relative;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 26px;
+    overflow: hidden;
+    backdrop-filter: blur(3px);
+  }
+
+  /* ===== header tile ===== */
+  .bk-header {
+    padding: clamp(36px, 5vw, 56px) clamp(28px, 5vw, 56px) clamp(32px, 4vw, 48px);
+    text-align: center;
+  }
+  .bk-strip {
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #e5b673 0%, #725ba7 50%, #4b9ed7 100%);
+  }
+  .bk-photo-wrap {
+    position: relative;
+    width: 148px; height: 148px;
+    margin: 8px auto 24px;
+  }
+  .bk-photo-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(229, 182, 115, 0.45) 0%, transparent 68%);
+    filter: blur(12px);
+    z-index: 0;
+  }
+  .bk-photo {
+    position: relative;
+    z-index: 1;
+    width: 148px; height: 148px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e5b673;
+    box-shadow: 0 10px 38px rgba(229, 182, 115, 0.35);
+    display: block;
+  }
+  .bk-eyebrow {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #e5b673;
+    margin-bottom: 14px;
+  }
+  .bk-title {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  .bk-gold { color: #e5b673; }
+  .bk-sub {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(240, 239, 245, 0.78);
+    max-width: 540px;
+    margin: 0 auto 26px;
+  }
+  .bk-points {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+  }
+  .bk-points li {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 0.85rem;
+    color: rgba(240, 239, 245, 0.62);
+  }
+  .bk-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #e5b673;
+    box-shadow: 0 0 0 4px rgba(229, 182, 115, 0.16);
+    flex-shrink: 0;
+  }
+
+  /* ===== calendly tile ===== */
+  .bk-cal {
+    padding: 12px;
+    background: rgba(20, 21, 56, 0.55);
+  }
+  .calendly-inline-widget {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .bk-fallback {
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(240, 239, 245, 0.5);
+  }
+  .bk-fallback a {
+    color: #e5b673;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .bk-fallback a:hover { color: #efc98c; }
+
+  /* ===== responsive ===== */
+  @media (max-width: 640px) {
+    .bk-page { padding-top: 104px; }
+    .bk-photo-wrap, .bk-photo { width: 120px; height: 120px; }
+  }
+</style>
