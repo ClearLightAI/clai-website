@@ -1,0 +1,225 @@
+---
+/**
+ * WhatWeBuild — credibility section below the hero.
+ *
+ * Reuses the hero's visual language: the fixed starfield + body gradient show
+ * through (section is transparent, `relative z-10`), the brand display font
+ * (Garet) and body font (Nunito Sans), the canonical gold (#e5b673), and the
+ * exact gold button treatment from the hero (.wwb-btn mirrors .hv-btn).
+ *
+ * Layout: centred title + sub-line, a 3-up card grid (each card has a fixed-
+ * height gold header band so the bands line up), a full-width adoption band,
+ * then a single centred book-a-call CTA.
+ */
+---
+
+<section id="what-we-built" class="wwb-section relative z-10 px-6">
+  <div class="wwb-wrap mx-auto">
+    <h2 class="wwb-title">What we build</h2>
+    <p class="wwb-sub">Real results from real businesses.</p>
+
+    <div class="wwb-grid">
+      <!-- CARD 1 -->
+      <div class="wwb-card">
+        <div class="wwb-band"><span class="wwb-cat">Sales &amp; Marketing</span></div>
+        <div class="wwb-body">
+          <p class="wwb-lead">$55K added value in 10 hours.</p>
+          <p class="wwb-support">Delivered a 6-month project in under a week for a global consultancy.</p>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="wwb-card">
+        <div class="wwb-band"><span class="wwb-cat">Customer Service</span></div>
+        <div class="wwb-body">
+          <p class="wwb-lead wwb-lead-quote">&ldquo;It answers the questions my team used to spend hours on.&rdquo;</p>
+          <p class="wwb-attr">7-figure online course creator</p>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="wwb-card">
+        <div class="wwb-band"><span class="wwb-cat">Social Media</span></div>
+        <div class="wwb-body">
+          <p class="wwb-lead">12+ content engines built.</p>
+          <p class="wwb-support">Social media on autopilot.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADOPTION BAND -->
+    <div class="wwb-adoption">
+      <p class="wwb-figure">100% Adoption Rate</p>
+      <p class="wwb-adopt-copy">
+        Most AI rollouts never get used.<br />
+        Ours get embedded because they solve real problems.
+      </p>
+    </div>
+
+    <!-- BOOK A CALL -->
+    <div class="wwb-cta-wrap">
+      <a
+        class="wwb-btn"
+        href="https://calendly.com/russellprice/clearlightai"
+        target="_blank"
+        rel="noopener"
+      >
+        Book an AI Discovery Call
+        <span class="wwb-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wwb-section {
+    padding-top: clamp(48px, 5.5vw, 84px);
+    padding-bottom: clamp(48px, 5.5vw, 84px);
+  }
+  .wwb-wrap { width: 92%; max-width: 1180px; }
+
+  /* ===== heading ===== */
+  .wwb-title {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .wwb-sub {
+    text-align: center;
+    font-size: clamp(1.0625rem, 0.98rem + 0.28vw, 1.1875rem);
+    line-height: 1.5;
+    color: rgba(240, 239, 245, 0.78);
+    margin-bottom: clamp(40px, 5vw, 60px);
+  }
+
+  /* ===== card grid ===== */
+  .wwb-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: clamp(28px, 4vw, 40px);
+  }
+  .wwb-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    overflow: hidden;
+    backdrop-filter: blur(2px);
+  }
+
+  /* fixed-height gold header band — same height across all three cards */
+  .wwb-band {
+    display: flex;
+    align-items: center;
+    height: 76px;
+    padding: 0 28px;
+    background: rgba(229, 182, 115, 0.09);
+    border-bottom: 1px solid rgba(229, 182, 115, 0.28);
+  }
+  .wwb-cat {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    color: #e5b673;
+    line-height: 1.15;
+  }
+
+  .wwb-body {
+    flex: 1;
+    padding: 28px;
+  }
+  .wwb-lead {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .wwb-lead-quote {
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.45rem;
+    line-height: 1.32;
+  }
+  .wwb-support {
+    font-size: clamp(1rem, 0.92rem + 0.28vw, 1.125rem);
+    line-height: 1.6;
+    color: rgba(240, 239, 245, 0.78);
+  }
+  .wwb-attr {
+    margin-top: 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #9b8ec4;
+  }
+
+  /* ===== adoption band ===== */
+  .wwb-adoption {
+    text-align: center;
+    background: rgba(229, 182, 115, 0.05);
+    border: 1px solid rgba(229, 182, 115, 0.25);
+    border-radius: 18px;
+    padding: clamp(20px, 2.4vw, 28px) clamp(24px, 4vw, 40px);
+    margin-bottom: clamp(36px, 5vw, 56px);
+  }
+  .wwb-figure {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 3.4vw, 2.125rem);
+    letter-spacing: -0.01em;
+    color: #e5b673;
+    margin-bottom: 10px;
+  }
+  .wwb-adopt-copy {
+    font-size: clamp(1rem, 0.92rem + 0.28vw, 1.125rem);
+    line-height: 1.6;
+    color: rgba(240, 239, 245, 0.78);
+  }
+
+  /* ===== book-a-call CTA — mirrors the hero's .hv-btn exactly ===== */
+  .wwb-cta-wrap { text-align: center; }
+  .wwb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+    background: #e5b673;
+    color: #13123b;
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 3.6vw, 1.9rem);
+    letter-spacing: 0.01em;
+    padding: 20px clamp(32px, 5vw, 52px);
+    border-radius: 14px;
+    max-width: 100%;
+    text-decoration: none;
+    box-shadow: 0 10px 30px -8px rgba(229, 182, 115, 0.55);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background 0.22s ease;
+  }
+  .wwb-btn:hover {
+    background: #efc98c;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 42px -8px rgba(229, 182, 115, 0.7);
+  }
+  .wwb-arrow { transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
+  .wwb-btn:hover .wwb-arrow { transform: translateX(4px); }
+
+  /* ===== responsive: stack to one column; bands become auto-height ===== */
+  @media (max-width: 860px) {
+    .wwb-wrap { width: 100%; }
+    .wwb-grid { grid-template-columns: 1fr; gap: 16px; }
+    .wwb-band { height: auto; min-height: 60px; padding: 16px 24px; }
+  }
+</style>

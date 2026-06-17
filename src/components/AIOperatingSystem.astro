@@ -1,0 +1,253 @@
+---
+/**
+ * AIOperatingSystem — "Your AI Operating System" section, below WhatWeBuild.
+ *
+ * Reuses the hero/site visual language: transparent over the fixed starfield +
+ * body gradient (`relative z-10`), brand display font (Garet) + body (Nunito
+ * Sans), canonical gold (#e5b673) and lavender (#9b8ec4). The diagram SVG is
+ * pasted verbatim per spec (it carries its own #e8c47a / #f0d091 / #a99cf5
+ * shades and Sora/Inter labels) and is self-contained.
+ */
+---
+
+<section id="ai-operating-system" class="aios-section relative z-10 px-6">
+  <div class="aios-wrap mx-auto">
+    <h2 class="aios-title">Your AI Operating System</h2>
+    <p class="aios-sub">
+      A team of AI agents that do real jobs, all wired into one <span class="aios-gold">Company Brain</span>.<br />
+      Agents as employees, not software.
+    </p>
+
+    <!-- diagram -->
+    <div class="aios-diagram">
+      <svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of an AI operating system: a central Company Brain connected to four agents - finance, social, CEO and custom apps.">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#e8c47a" stop-opacity="0.30"/>
+            <stop offset="55%" stop-color="#e8c47a" stop-opacity="0.07"/>
+            <stop offset="100%" stop-color="#e8c47a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="380" cy="205" r="172" fill="none" stroke="rgba(169,156,245,0.10)" stroke-width="1"/>
+        <circle cx="380" cy="205" r="118" fill="none" stroke="rgba(232,196,122,0.12)" stroke-width="1" stroke-dasharray="3 6"/>
+        <g stroke-width="1" fill="none">
+          <line x1="380" y1="205" x2="175" y2="95"  stroke="rgba(232,196,122,0.34)"/>
+          <line x1="380" y1="205" x2="585" y2="95"  stroke="rgba(169,156,245,0.34)"/>
+          <line x1="380" y1="205" x2="175" y2="315" stroke="rgba(169,156,245,0.34)"/>
+          <line x1="380" y1="205" x2="585" y2="315" stroke="rgba(232,196,122,0.34)"/>
+        </g>
+        <g fill="#e8c47a">
+          <circle cx="277" cy="150" r="2.6"/><circle cx="483" cy="150" r="2.6"/>
+          <circle cx="277" cy="260" r="2.6"/><circle cx="483" cy="260" r="2.6"/>
+        </g>
+        <circle cx="380" cy="205" r="92" fill="url(#glow)"/>
+        <rect x="334" y="159" width="92" height="92" rx="24" fill="#11132c" stroke="#e8c47a" stroke-width="1.6"/>
+        <g stroke="#f0d091" stroke-width="1.4" fill="none" opacity="0.95">
+          <line x1="380" y1="188" x2="366" y2="205"/><line x1="380" y1="188" x2="394" y2="205"/>
+          <line x1="366" y1="205" x2="380" y2="222"/><line x1="394" y1="205" x2="380" y2="222"/>
+          <line x1="366" y1="205" x2="394" y2="205"/>
+        </g>
+        <g fill="#f0d091">
+          <circle cx="380" cy="188" r="3.4"/><circle cx="366" cy="205" r="3.4"/>
+          <circle cx="394" cy="205" r="3.4"/><circle cx="380" cy="222" r="3.4"/>
+        </g>
+        <text x="380" y="288" text-anchor="middle" font-family="Sora" font-size="14" font-weight="500" fill="#e8c47a">Company Brain</text>
+        <g transform="translate(145,65)">
+          <rect width="60" height="60" rx="15" fill="#0f1126" stroke="#a99cf5" stroke-width="1.2"/>
+          <polyline points="17,41 27,31 35,35 44,21" fill="none" stroke="#a99cf5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="44" cy="21" r="2.4" fill="#a99cf5"/>
+          <text x="30" y="80" text-anchor="middle" font-family="Inter" font-size="13.5" fill="#d4d8ea">Finance</text>
+        </g>
+        <g transform="translate(555,65)">
+          <rect width="60" height="60" rx="15" fill="#0f1126" stroke="#a99cf5" stroke-width="1.2"/>
+          <g stroke="#a99cf5" stroke-width="2" fill="none">
+            <circle cx="21" cy="22" r="4.5" fill="#0f1126"/><circle cx="21" cy="40" r="4.5" fill="#0f1126"/><circle cx="41" cy="31" r="4.5" fill="#0f1126"/>
+            <line x1="25" y1="24" x2="37" y2="29"/><line x1="25" y1="38" x2="37" y2="33"/>
+          </g>
+          <text x="30" y="80" text-anchor="middle" font-family="Inter" font-size="13.5" fill="#d4d8ea">Social</text>
+        </g>
+        <g transform="translate(145,285)">
+          <rect width="60" height="60" rx="15" fill="#0f1126" stroke="#a99cf5" stroke-width="1.2"/>
+          <g stroke="#a99cf5" stroke-width="2" fill="none" stroke-linecap="round">
+            <polyline points="16,22 19,25 24,20"/><line x1="29" y1="23" x2="44" y2="23"/>
+            <polyline points="16,32 19,35 24,30"/><line x1="29" y1="33" x2="44" y2="33"/>
+            <polyline points="16,42 19,45 24,40"/><line x1="29" y1="43" x2="44" y2="43"/>
+          </g>
+          <text x="30" y="80" text-anchor="middle" font-family="Inter" font-size="13.5" fill="#d4d8ea">CEO</text>
+        </g>
+        <g transform="translate(555,285)">
+          <rect width="60" height="60" rx="15" fill="#0f1126" stroke="#a99cf5" stroke-width="1.2"/>
+          <g fill="none" stroke="#a99cf5" stroke-width="2">
+            <rect x="18" y="18" width="10" height="10" rx="2.5"/><rect x="32" y="18" width="10" height="10" rx="2.5"/>
+            <rect x="18" y="32" width="10" height="10" rx="2.5"/><rect x="32" y="32" width="10" height="10" rx="2.5"/>
+          </g>
+          <text x="30" y="80" text-anchor="middle" font-family="Inter" font-size="13.5" fill="#d4d8ea">Custom apps</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- agent grid -->
+    <div class="aios-grid">
+      <div class="aios-item">
+        <span class="aios-dot" aria-hidden="true"></span>
+        <div class="aios-item-body">
+          <h3 class="aios-item-title">Finance Agent</h3>
+          <p class="aios-item-primary">Replaces your bookkeeper.</p>
+          <p class="aios-item-accent">Track every dollar instantly.</p>
+        </div>
+      </div>
+      <div class="aios-item">
+        <span class="aios-dot" aria-hidden="true"></span>
+        <div class="aios-item-body">
+          <h3 class="aios-item-title">Social Media Agent</h3>
+          <p class="aios-item-primary">Helps create engaging social media.</p>
+          <p class="aios-item-accent">Automated posting pipeline.</p>
+        </div>
+      </div>
+      <div class="aios-item">
+        <span class="aios-dot" aria-hidden="true"></span>
+        <div class="aios-item-body">
+          <h3 class="aios-item-title">CEO Agent</h3>
+          <p class="aios-item-primary">Keeps the company on target.</p>
+          <p class="aios-item-accent">McKinsey-level advice, PhD-level execution.</p>
+        </div>
+      </div>
+      <div class="aios-item">
+        <span class="aios-dot" aria-hidden="true"></span>
+        <div class="aios-item-body">
+          <h3 class="aios-item-title">Custom Apps</h3>
+          <p class="aios-item-primary">Solve your biggest bottlenecks.</p>
+          <p class="aios-item-accent">Your secret key to scaling.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- consultancy / productivity box -->
+    <div class="aios-consult">
+      <p class="aios-consult-title">Productivity gains are <span class="aios-gold">real</span>.</p>
+      <p class="aios-quote">
+        &ldquo;At least 20 hours a week, if not more. What I'm able to achieve in an average working week now blows my mind.&rdquo;
+      </p>
+      <p class="aios-attr">Frances - CEO of FWRD CRM</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .aios-section {
+    padding-top: clamp(48px, 5.5vw, 84px);
+    padding-bottom: clamp(48px, 5.5vw, 84px);
+  }
+  .aios-wrap { width: 92%; max-width: 1180px; }
+  .aios-gold { color: #e5b673; }
+
+  /* ===== heading ===== */
+  .aios-title {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .aios-sub {
+    max-width: 600px;
+    margin: 0 auto clamp(40px, 5vw, 64px);
+    text-align: center;
+    font-size: clamp(1.0625rem, 0.98rem + 0.28vw, 1.1875rem);
+    line-height: 1.6;
+    color: rgba(240, 239, 245, 0.78);
+  }
+
+  /* ===== diagram ===== */
+  .aios-diagram {
+    max-width: 740px;
+    margin: 0 auto clamp(44px, 5vw, 68px);
+  }
+  .aios-diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ===== agent grid ===== */
+  .aios-grid {
+    max-width: 840px;
+    margin: 0 auto clamp(44px, 5vw, 64px);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(24px, 3vw, 36px) clamp(32px, 5vw, 72px);
+  }
+  .aios-item {
+    display: flex;
+    gap: 14px;
+  }
+  .aios-dot {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    margin-top: 9px;
+    border-radius: 50%;
+    background: #e5b673;
+    box-shadow: 0 0 0 4px rgba(229, 182, 115, 0.15);
+  }
+  .aios-item-title {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .aios-item-primary {
+    font-size: clamp(1rem, 0.92rem + 0.28vw, 1.125rem);
+    line-height: 1.6;
+    color: rgba(240, 239, 245, 0.78);
+    margin-bottom: 4px;
+  }
+  .aios-item-accent {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: #e5b673;
+  }
+
+  /* ===== consultancy box ===== */
+  .aios-consult {
+    max-width: 880px;
+    margin: 0 auto;
+    border: 1px solid rgba(229, 182, 115, 0.25);
+    background: rgba(229, 182, 115, 0.05);
+    border-radius: 20px;
+    padding: clamp(28px, 4vw, 38px);
+  }
+  .aios-consult-title {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 2.4vw, 1.625rem);
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .aios-quote {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.4vw, 1.6875rem);
+    line-height: 1.4;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  .aios-attr {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #9b8ec4;
+  }
+
+  /* ===== responsive ===== */
+  @media (max-width: 860px) {
+    .aios-wrap { width: 100%; }
+    .aios-grid { grid-template-columns: 1fr; }
+  }
+</style>

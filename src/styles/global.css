@@ -32,7 +32,18 @@
   /* Fonts — brand board: Garet (display) + Nunito Sans (body) */
   --font-display: "Garet", sans-serif;
   --font-body: "Nunito Sans", sans-serif;
+
 }
+
+/* === TYPE SCALE + RHYTHM (2026 readability pass) ===
+   Body text was bumped from ~15px to a fluid 16px (mobile) -> 18px (desktop),
+   muted text from 0.5-0.6 alpha to rgba(240,239,245,0.78) so composited
+   contrast clears WCAG AA 4.5:1 on the near-black background, and section
+   padding standardised to clamp(48px, 5.5vw, 84px) for even scroll rhythm.
+   These values are inlined as literals in each component's scoped <style>
+   rather than as tokens: Tailwind v4 reserves the text/leading namespaces and
+   tree-shakes @theme custom properties that aren't referenced inside this file,
+   so component-only tokens get dropped. Inline literals are the reliable path. */
 
 /* === BASE === */
 ::selection {

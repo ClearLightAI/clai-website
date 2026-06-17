@@ -3,7 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Starfield from "../components/Starfield.astro";
 import Nav from "../components/Nav.astro";
 import HeroVideo from "../components/HeroVideo.astro";
-import ServicesBento from "../components/ServicesBento.astro";
+import WhatWeBuild from "../components/WhatWeBuild.astro";
+import AIOperatingSystem from "../components/AIOperatingSystem.astro";
 import Proof from "../components/Proof.astro";
 import FooterBento from "../components/FooterBento.astro";
 ---
@@ -12,17 +13,8 @@ import FooterBento from "../components/FooterBento.astro";
   <Starfield />
   <Nav />
   <HeroVideo videoSrc="/video/2026_june_landing.mp4" />
-  <ServicesBento />
+  <WhatWeBuild />
+  <AIOperatingSystem />
   <!-- <Proof /> hidden while updating featured businesses -->
   <FooterBento />
-
-  <!-- ElevenLabs AI Profit Wizard — floating bubble, bottom-right -->
-  <elevenlabs-convai
-    agent-id="agent_3601kktqh8pfej0ayy03jfaj7z1b"
-    branch-id="agtbrch_6801kpyf94q3ecsszzez7gw85bex"
-    avatar-orb-color-1="#e5b673"
-    avatar-orb-color-2="#725ba7"
-    action-text="Talk to our AI Strategist"
-    start-call-text="Start Audit"
-  ></elevenlabs-convai>
 </Layout>
