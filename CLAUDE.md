@@ -66,6 +66,37 @@ All primary CTA buttons (nav, hero, footer) use the canonical gold treatment (`#
 
 **Important:** Gradient text uses inline `style` attributes, not CSS classes — Tailwind v4 purges custom `background-clip: text` classes. Headings must use `font-light`, never `font-bold`.
 
+## Typography & Spacing (design principles)
+
+These came out of a readability/conversion audit + deep research (NN/g, WCAG 2.2, Baymard, Material Design 3, Apple HIG) in June 2026. Apply them to every new section so the site stays consistent and legible. This is a marketing/landing page — readability is conversion, so do not shrink text to "fit the look."
+
+**Type scale (fluid, mobile → desktop):**
+
+| Role | Size | Notes |
+|------|------|-------|
+| Hero H1 | `clamp(2.7rem, 6.48vw, 4.86rem)` | Garet light |
+| Section H2 | `clamp(2.2rem, 4.6vw, 3.4rem)` | Garet light, centred |
+| Sub-line under H2 | `clamp(1.0625rem, 0.98rem + 0.28vw, 1.1875rem)` (17→19px) | |
+| Card / item title | `1.25rem` (20px) | bold is OK here (instruction overrides the "headings never bold" rule for sub-titles/stats) |
+| **Body / support** | `clamp(1rem, 0.92rem + 0.28vw, 1.125rem)` (**16→18px**) | line-height **1.6** |
+| Accent / attribution | `1rem` (16px) | never below 16px for reading text |
+| Eyebrow / meta label | `0.65–0.75rem` uppercase tracked | the *only* allowed sub-16px text |
+
+**Hard rules:**
+- **Body text floor is 16px** (mobile) and ~18px on desktop. 14–15px reading text is a regression — do not reintroduce it. Only uppercase tracked labels/eyebrows may go smaller.
+- **Muted text uses `rgba(240, 239, 245, 0.78)` minimum** (`0.86` for slightly stronger). Opacity ≤0.6 on the near-black background fails WCAG AA contrast and hurts conversion — never use it for body copy.
+- Line-height ≥1.5 for body (we use 1.6). Cap body paragraph blocks at ~60ch (`max-width`) to stay in the 50–75 character measure.
+- Line length / measure: 50–75 characters; never exceed ~80.
+
+**Spacing & scroll rhythm:**
+- Every section uses **one padding token**: `padding-top`/`padding-bottom: clamp(48px, 5.5vw, 84px)`. Keep it identical across sections so transitions feel even and there are no dead gaps. Do NOT use tall `min-height` "fold tease" voids — they read as empty space.
+
+**Tailwind v4 token caveat (learned the hard way):**
+- Tailwind v4 **reserves the `--text-*` and `--leading-*` namespaces** (font-size / line-height), so declaring them in `@theme` or a plain `:root` does NOT emit a usable `:root` custom property — `getComputedStyle` returns empty.
+- It also **tree-shakes `@theme` custom properties that aren't referenced inside `global.css` itself** (e.g. `--color-gold` survives only because `::selection` uses it). A token used only in a component's scoped `<style>` gets dropped.
+- Therefore: **inline the type-scale `clamp()` values and the muted `rgba()` literals directly in each component's scoped `<style>`** (do not rely on shared custom properties for them). Verify with `getComputedStyle` after changes.
+- Never put `*/` inside a CSS comment (e.g. writing `--text-*/--leading-*`) — it closes the comment early and a later apostrophe ("won't") triggers an "Unclosed string" build error.
+
 ## Copy Source Files
 
 All approved copy lives in `clai-copy.ai/`:
