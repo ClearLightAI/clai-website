@@ -37,7 +37,26 @@ const href = "https://audit.clearlightai.com";
   <div class="border-t border-white/[0.04] py-6 px-6">
     <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-text-tertiary text-xs">
       <span>&copy; 2026 ClearLight AI. All rights reserved.</span>
-      <span>Built for performance. Architected for scale.</span>
+      <span class="ftrb-signoff">
+        Built for performance. Architected for scale.
+        <!-- easter egg: a little UFO drifting off to the galaxy -->
+        <a
+          class="ftrb-ufo"
+          href="https://pages.clearlightai.com/galaxy"
+          target="_blank"
+          rel="noopener"
+          aria-label="Explore the ClearLight galaxy"
+          title="Take me to the galaxy"
+        >
+          <svg viewBox="0 0 24 16" width="22" height="15" aria-hidden="true">
+            <ellipse class="ufo-dome" cx="12" cy="7" rx="4.2" ry="3.4"/>
+            <ellipse class="ufo-body" cx="12" cy="9.4" rx="9" ry="3"/>
+            <circle class="ufo-light" cx="7.5" cy="9.6" r="0.9"/>
+            <circle class="ufo-light" cx="12" cy="10.2" r="0.9"/>
+            <circle class="ufo-light" cx="16.5" cy="9.6" r="0.9"/>
+          </svg>
+        </a>
+      </span>
     </div>
   </div>
 </footer>
@@ -130,5 +149,39 @@ const href = "https://audit.clearlightai.com";
 
   @media (max-width: 860px) {
     .ftrb-cta { width: 100%; }
+  }
+
+  /* ---- footer UFO easter egg (bottom-right) -> the galaxy ---- */
+  .ftrb-signoff {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ftrb-ufo {
+    display: inline-flex;
+    line-height: 0;
+    color: rgba(255, 255, 255, 0.22);
+    opacity: 0.55;
+    transform: translateY(0);
+    transition: color 0.3s ease, opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: ftrb-ufo-bob 4.5s ease-in-out infinite;
+  }
+  .ftrb-ufo .ufo-body { fill: currentColor; }
+  .ftrb-ufo .ufo-dome { fill: currentColor; opacity: 0.7; }
+  .ftrb-ufo .ufo-light { fill: #e5b673; opacity: 0.5; transition: opacity 0.3s ease; }
+  .ftrb-ufo:hover {
+    color: #9b8ec4;
+    opacity: 1;
+    transform: translateY(-3px) rotate(-6deg);
+  }
+  .ftrb-ufo:hover .ufo-dome { fill: #4b9ed7; opacity: 0.9; }
+  .ftrb-ufo:hover .ufo-light { opacity: 1; }
+  .ftrb-ufo:focus-visible { outline: 2px solid #4b9ed7; outline-offset: 3px; border-radius: 6px; }
+  @keyframes ftrb-ufo-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ftrb-ufo { animation: none; }
   }
 </style>
