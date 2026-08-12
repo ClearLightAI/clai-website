@@ -1,0 +1,174 @@
+---
+/**
+ * /audit — dedicated AI Readiness Audit page.
+ *
+ * Replaces the ElevenLabs hosted talk-to page (which ignores widget avatar
+ * styling and renders their default green orb on white). The embedded widget
+ * DOES honor the published widget config (purple orb #745aa5/#7789d9, dark bg,
+ * gold button), so we host it ourselves: the widget centered in a
+ * full-screen-ish glass tile, with page padding so the starfield shows
+ * through around the frame.
+ *
+ * audit.clearlightai.com should 301 here (Cloudflare rule) instead of
+ * elevenlabs.io/app/talk-to.
+ */
+import Layout from "../layouts/Layout.astro";
+import Starfield from "../components/Starfield.astro";
+import Nav from "../components/Nav.astro";
+
+const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
+---
+
+<Layout
+  title="Free AI Readiness Audit | ClearLight AI"
+  description="Begin your free 10-15 minute AI Readiness Audit with ClearLight AI. Talk to the Audit Wizard and get a phased AI implementation roadmap for your business."
+>
+  <Starfield />
+  <Nav />
+
+  <main class="aw-page">
+    <header class="aw-head">
+      <p class="aw-eyebrow">Free AI Readiness Audit</p>
+      <h1 class="aw-title">
+        Talk to the
+        <span style="background: linear-gradient(90deg, #745aa5, #7789d9); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">Audit Wizard.</span>
+      </h1>
+      <p class="aw-sub">
+        A 10&ndash;15 minute conversation about your business. You leave with a
+        phased AI roadmap. Start when you're ready &mdash; it listens, it doesn't pitch.
+      </p>
+    </header>
+
+    <section class="aw-tile">
+      <span class="aw-strip" aria-hidden="true"></span>
+      <div class="aw-widget-wrap">
+        <elevenlabs-convai agent-id={AGENT_ID} variant="expanded" always-expanded></elevenlabs-convai>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript" is:inline></script>
+  <script is:inline>
+    // The widget's expanded "sheet" is absolutely positioned bottom-right and
+    // capped at 400x550 inside its (open) shadow root. Inject a style to make
+    // it fill our glass tile instead.
+    (function () {
+      var css =
+        'div[class*="sheet"]{position:absolute !important;inset:0 !important;' +
+        'width:100% !important;height:100% !important;max-width:none !important;' +
+        'max-height:none !important;border-radius:16px !important;}';
+      var tries = 0;
+      var timer = setInterval(function () {
+        tries++;
+        var el = document.querySelector("elevenlabs-convai");
+        if (el && el.shadowRoot && el.shadowRoot.querySelector('div[class*="sheet"]')) {
+          var style = document.createElement("style");
+          style.textContent = css;
+          el.shadowRoot.appendChild(style);
+          clearInterval(timer);
+        } else if (tries > 100) {
+          clearInterval(timer);
+        }
+      }, 100);
+    })();
+  </script>
+</Layout>
+
+<style>
+  .aw-page {
+    position: relative;
+    z-index: 2;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 120px 24px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .aw-head { text-align: center; }
+  .aw-eyebrow {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #e5b673;
+    margin-bottom: 14px;
+  }
+  .aw-title {
+    font-family: var(--font-display, "Garet", sans-serif);
+    font-weight: 300;
+    font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .aw-sub {
+    font-size: clamp(1rem, 0.92rem + 0.28vw, 1.125rem);
+    line-height: 1.6;
+    color: rgba(240, 239, 245, 0.78);
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+
+  /* Glass frame — thin, so the starfield reads around it */
+  .aw-tile {
+    position: relative;
+    flex: 1;
+    display: flex;
+    background: rgba(20, 21, 56, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 26px;
+    overflow: hidden;
+    backdrop-filter: blur(3px);
+    padding: 12px;
+    min-height: 660px;
+  }
+  .aw-strip {
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #e5b673 0%, #725ba7 50%, #7789d9 100%);
+  }
+
+  .aw-widget-wrap {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  /* The widget positions itself fixed bottom-right by default; force it to
+     behave as an in-flow, full-size panel inside the tile. Its shadow DOM
+     inherits the --el-* theme vars, so we re-skin it to the brand here.
+     Geometry (the 400x550 max sheet) is overridden by an injected shadow
+     style in the script below. */
+  .aw-widget-wrap elevenlabs-convai {
+    position: static !important;
+    width: 100%;
+    height: 100%;
+    display: block;
+    --el-base: #141538;
+    --el-base-hover: #1c1d4a;
+    --el-base-active: #24255c;
+    --el-base-border: rgba(255, 255, 255, 0.12);
+    --el-base-subtle: rgba(240, 239, 245, 0.62);
+    --el-base-primary: #f0eff5;
+    --el-accent: #e5b673;
+    --el-accent-hover: #efc98c;
+    --el-accent-active: #d9a75f;
+    --el-accent-border: rgba(229, 182, 115, 0.4);
+    --el-accent-subtle: rgba(229, 182, 115, 0.16);
+    --el-accent-primary: #13123b;
+  }
+
+  @media (max-width: 640px) {
+    .aw-page { padding: 100px 12px 24px; gap: 18px; }
+    .aw-tile { padding: 8px; min-height: 600px; }
+  }
+</style>
