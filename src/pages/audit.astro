@@ -58,6 +58,11 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
         'width:100% !important;height:100% !important;max-width:none !important;' +
         'max-height:none !important;border-radius:16px !important;}' +
         /* Input bar: white field, purple text, clearly visible on the navy sheet */
+        /* Agent messages render as bare text (no bubble component) — wrap them
+           in a bubble to mirror the user side */
+        'div[class="pr-8"]{background:#2f3175 !important;color:#f0eff5 !important;' +
+        'padding:10px 14px !important;border-radius:14px 14px 14px 4px !important;' +
+        'width:fit-content;max-width:85%;}' +
         /* Chat input: match the feedback box — navy field, gold border, white text */
         'div[class*="sticky"] div:has(> textarea){background:transparent !important;border:1px solid #e5b673 !important;}' +
         'div[class*="sticky"] textarea{background:transparent !important;color:#f0eff5 !important;caret-color:#e5b673 !important;}' +
