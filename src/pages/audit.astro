@@ -42,7 +42,7 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
     <section class="aw-tile">
       <span class="aw-strip" aria-hidden="true"></span>
       <div class="aw-widget-wrap">
-        <elevenlabs-convai agent-id={AGENT_ID} variant="expanded" always-expanded></elevenlabs-convai>
+        <elevenlabs-convai agent-id={AGENT_ID} variant="expanded" always-expanded="true"></elevenlabs-convai>
       </div>
     </section>
   </main>
@@ -54,9 +54,20 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
     // it fill our glass tile instead.
     (function () {
       var css =
-        'div[class*="sheet"]{position:absolute !important;inset:0 !important;' +
+        'div[class*="overlay"] > div[class*="sheet"]{position:absolute !important;inset:0 !important;' +
         'width:100% !important;height:100% !important;max-width:none !important;' +
-        'max-height:none !important;border-radius:16px !important;}';
+        'max-height:none !important;border-radius:16px !important;}' +
+        /* Input bar: white field, purple text, clearly visible on the navy sheet */
+        'div:has(> textarea){background:#ffffff !important;border:1px solid rgba(116,90,165,0.45) !important;}' +
+        'textarea{background:#ffffff !important;color:#745aa5 !important;caret-color:#745aa5 !important;}' +
+        'textarea::placeholder{color:#9b8ec4 !important;opacity:1 !important;}' +
+        /* Mode toggle: icon-only button -> labeled gold CTA (label from aria-label) */
+        'button[aria-label="Switch to Chat Mode"],button[aria-label="Switch to Voice Mode"]{' +
+        'width:auto !important;background:#e5b673 !important;color:#13123b !important;' +
+        'border-radius:9999px !important;padding:0 14px !important;gap:8px !important;}' +
+        'button[aria-label="Switch to Chat Mode"]:hover,button[aria-label="Switch to Voice Mode"]:hover{background:#efc98c !important;}' +
+        'button[aria-label="Switch to Chat Mode"]::after,button[aria-label="Switch to Voice Mode"]::after{' +
+        'content:attr(aria-label);font-size:0.85rem;font-weight:600;white-space:nowrap;}';
       var tries = 0;
       var timer = setInterval(function () {
         tries++;
