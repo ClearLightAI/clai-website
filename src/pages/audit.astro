@@ -58,9 +58,10 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
         'width:100% !important;height:100% !important;max-width:none !important;' +
         'max-height:none !important;border-radius:16px !important;}' +
         /* Input bar: white field, purple text, clearly visible on the navy sheet */
-        'div[class*="sticky"] div:has(> textarea){background:#ffffff !important;border:1px solid rgba(116,90,165,0.45) !important;}' +
-        'div[class*="sticky"] textarea{background:#ffffff !important;color:#111111 !important;caret-color:#111111 !important;}' +
-        'div[class*="sticky"] textarea::placeholder{color:#9b8ec4 !important;opacity:1 !important;}' +
+        /* Chat input: match the feedback box — navy field, gold border, white text */
+        'div[class*="sticky"] div:has(> textarea){background:transparent !important;border:1px solid #e5b673 !important;}' +
+        'div[class*="sticky"] textarea{background:transparent !important;color:#f0eff5 !important;caret-color:#e5b673 !important;}' +
+        'div[class*="sticky"] textarea::placeholder{color:rgba(240,239,245,0.55) !important;opacity:1 !important;}' +
         /* Mode toggle: icon-only button -> labeled gold CTA (label from aria-label) */
         'button[aria-label="Switch to Chat Mode"],button[aria-label="Switch to Voice Mode"]{' +
         'width:auto !important;background:#e5b673 !important;color:#13123b !important;' +
@@ -166,7 +167,7 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
     display: block;
     --el-base: #141538;
     --el-base-hover: #1c1d4a;
-    --el-base-active: #24255c;
+    --el-base-active: #2f3175; /* also agent chat-bubble bg — must read against the navy sheet */
     --el-base-border: rgba(255, 255, 255, 0.12);
     --el-base-subtle: rgba(240, 239, 245, 0.62);
     --el-base-primary: #f0eff5;
