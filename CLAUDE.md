@@ -25,8 +25,10 @@ Live on Netlify. The homepage (June 2026 redesign) brings the video above the fo
 - **`HeroVideo`** — centered title up top (`What's the ROI on AI in your business?`), then a two-column row: a self-hosted video in a glass bento tile (left) + the "Take the same process / 9-figure entrepreneurs run." CTA copy + gold button (right). Click-to-play (no autoplay); the player swaps in a real `<video>` on click. Video is served from `public/video/` (see Video assets below).
 - **`ServicesBento`** — 3 glass tiles (hover-lift, accent strips, numbered labels); flagship audit card gets a gold border + pill. Tablet (≤860px) = 2-col with flagship spanning full width; ≤560px = single column.
 - **`FooterBento`** — final CTA as a gradient bento tile.
-- Starfield canvas (cursor-following purple glow) + ElevenLabs Audit Wizard floating widget (pinned to v2 branch via `branch-id` — dashboard routing % does NOT apply to embeds).
+- Starfield canvas (cursor-following purple glow). The ElevenLabs Audit Wizard is NO LONGER a floating widget on the homepage — it lives on the dedicated `/audit` page (see below).
 - The old `Hero`, `Services`, `Footer`, `VideoCtaPill` components were removed when this shipped. `Proof.astro` remains but is still hidden (`<!-- <Proof /> -->`) pending updated featured businesses.
+
+**`/audit`** (Aug 2026) — dedicated Audit Wizard page: the `<elevenlabs-convai>` widget embedded inline (always-expanded, full-size) in a glass bento tile, re-themed to brand via `--el-*` CSS vars + injected shadow-DOM styles, with a page-side fake typing indicator. Hero + footer CTAs route here. Critical attributes on the element: `use-rtc="true"` (WebRTC — without it voice runs over plain WS with worse latency) and `branch-id` **pinned to the Main branch** (`agtbrch_2601…`) — the v2 branch runtime had a stuck 5–11s per-turn lag regardless of config (2026-08-13 investigation); v2's leaner prompt was copied onto Main and Main tuned for voice (gemini-2.5-flash, eleven_turbo_v2, no backup cascade). Mode is fixed per conversation: call button = voice/orb; typing pre-call flips to a text-only session (mixed voice+chat is broken at the platform level; in-call toggle disabled). Full gotcha list: project memory `reference_elevenlabs_inline_widget.md`.
 
 **`/book`** — booking landing page: Russell's headshot + brief header + his Calendly inline widget (`calendly.com/russellprice/clearlightai`) embedded in a glass bento tile, consultants-toolkit style. Not yet linked from the site nav/footer.
 
@@ -44,9 +46,9 @@ All primary CTA buttons (nav, hero, footer) use the canonical gold treatment (`#
 - **Repo:** github.com/ClearLightAI/clai-website (public)
 - **Domain:** clearlightai.com (DNS managed via Cloudflare)
 - **Publish directory:** `dist` (Astro default)
-- **Internal routes:** `/` (homepage), `/book` (Calendly booking page)
+- **Internal routes:** `/` (homepage), `/audit` (inline Audit Wizard), `/book` (Calendly booking page)
 - **Key external URLs:**
-  - `audit.clearlightai.com` — Cloudflare 301 → ElevenLabs talk-to page (must include `branch_id` param for correct branch)
+  - `audit.clearlightai.com` — Cloudflare 301; **should point to `clearlightai.com/audit`** (the old target, the ElevenLabs talk-to page, ignores widget styling and is deprecated for us). Site CTAs already link `/audit` directly.
   - `calendly.com/russellprice/clearlightai` — Russell's booking calendar (embedded on `/book`; same link the audit-report CTAs use)
   - `chat.clearlightai.com` — ChatWidget backend (not linked from website)
   - `n8n.clearlightai.com` — n8n workflows (not linked from website)
