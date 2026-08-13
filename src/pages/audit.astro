@@ -146,8 +146,12 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
               if (isAgentReply(added[j])) { removeIndicator(); return; }
             }
           }
-          // The widget's own re-renders drop foreign nodes — re-append while waiting
-          if (indicator && !indicator.isConnected) appendIndicator();
+          // The widget's own re-renders drop foreign nodes or render entries
+          // after ours (initial send) — keep the indicator attached and last
+          if (indicator && (!indicator.isConnected ||
+              (indicator.parentElement && indicator.parentElement.lastElementChild !== indicator))) {
+            appendIndicator();
+          }
         }).observe(sr, { childList: true, subtree: true });
 
         // Capture phase: the widget stops propagation of these events once a
