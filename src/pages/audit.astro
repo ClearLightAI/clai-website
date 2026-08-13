@@ -17,6 +17,12 @@ import Starfield from "../components/Starfield.astro";
 import Nav from "../components/Nav.astro";
 
 const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
+// Pinned to Main. The v2 branch runtime has a stuck ~4-10s per-turn latency
+// regardless of its LLM/turn/TTS config (measured 2026-08-13, raw WS API);
+// Main with identical settings answers in ~1.6s. v2's leaner prompt +
+// first_message were copied onto Main, and Main's LLM/TTS/turn were tuned
+// (gemini-2.5-flash, eleven_turbo_v2, no backup-override cascade).
+const BRANCH_ID = "agtbrch_2601kktqh9ffe0m83yzzamy9m6kt";
 ---
 
 <Layout
@@ -42,7 +48,7 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
     <section class="aw-tile">
       <span class="aw-strip" aria-hidden="true"></span>
       <div class="aw-widget-wrap">
-        <elevenlabs-convai agent-id={AGENT_ID} variant="expanded" always-expanded="true" use-rtc="true"></elevenlabs-convai>
+        <elevenlabs-convai agent-id={AGENT_ID} branch-id={BRANCH_ID} variant="expanded" always-expanded="true" use-rtc="true"></elevenlabs-convai>
       </div>
     </section>
     <p class="aw-mode-note" id="aw-voice-back" hidden>
