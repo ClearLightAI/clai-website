@@ -45,6 +45,10 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
         <elevenlabs-convai agent-id={AGENT_ID} variant="expanded" always-expanded="true"></elevenlabs-convai>
       </div>
     </section>
+    <p class="aw-mode-note" id="aw-voice-back" hidden>
+      Chat mode &mdash; replies appear as text.
+      <a href="#" id="aw-voice-back-link">Prefer voice? Switch back to the call.</a>
+    </p>
   </main>
 
   <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript" is:inline></script>
@@ -154,17 +158,47 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
           }
         }).observe(sr, { childList: true, subtree: true });
 
+        // Mode handling: mixed voice+chat sessions are broken at the platform
+        // level (typed messages interrupt the voice pipeline; replies are
+        // TTS-paced or invisible). So the mode is fixed per conversation:
+        // typing before a call starts flips the widget to a text-only session
+        // (instant replies); the call button keeps the voice/orb experience.
+        var host = sr.host;
+        var convoStarted = false;
+        var note = document.getElementById("aw-voice-back");
+        function enterChatMode() {
+          if (convoStarted || host.getAttribute("override-text-only") === "true") return;
+          host.setAttribute("override-text-only", "true");
+          if (note) note.hidden = false;
+        }
+        var backLink = document.getElementById("aw-voice-back-link");
+        if (backLink) backLink.addEventListener("click", function (e) {
+          e.preventDefault();
+          if (convoStarted) return;
+          host.removeAttribute("override-text-only");
+          if (note) note.hidden = true;
+        });
+
         // Capture phase: the widget stops propagation of these events once a
         // conversation is live, so bubble-phase listeners never fire.
         sr.addEventListener("click", function (e) {
           var t = e.target;
-          var btn = t && t.closest && t.closest('button[aria-label="Send"]');
-          if (btn) setTimeout(showIndicator, 150);
+          if (!t || !t.closest) return;
+          if (t.closest('button[aria-label="Send"]')) {
+            convoStarted = true;
+            setTimeout(showIndicator, 150);
+          } else if (t.closest("button") && /Start/.test(t.closest("button").textContent)) {
+            convoStarted = true; // voice call locks the mode
+          }
         }, true);
         sr.addEventListener("keydown", function (e) {
-          if (e.key !== "Enter" || e.shiftKey) return;
           var t = e.target;
-          if (t && t.tagName === "TEXTAREA" && t.value.trim()) setTimeout(showIndicator, 150);
+          if (!t || t.tagName !== "TEXTAREA") return;
+          if (e.key === "Enter" && !e.shiftKey) {
+            if (t.value.trim()) { convoStarted = true; setTimeout(showIndicator, 150); }
+          } else if (e.key.length === 1) {
+            enterChatMode();
+          }
         }, true);
       }
     })();
@@ -263,6 +297,19 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
     --el-accent-subtle: rgba(229, 182, 115, 0.16);
     --el-accent-primary: #13123b;
   }
+
+  .aw-mode-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(240, 239, 245, 0.55);
+    margin-top: -8px;
+  }
+  .aw-mode-note a {
+    color: #e5b673;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .aw-mode-note a:hover { color: #efc98c; }
 
   @media (max-width: 640px) {
     .aw-page { padding: 100px 12px 24px; gap: 18px; }
