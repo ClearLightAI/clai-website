@@ -111,7 +111,8 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
         }
 
         function appendIndicator() {
-          var list = sr.querySelector('div[class*="overflow-y-auto"] div[class*="flex-col"]');
+          var sheet = sr.querySelector('div[class*="overlay"] > div[class*="sheet"]');
+          var list = sheet && sheet.querySelector('div[class*="overflow-y-auto"] div[class*="flex-col"]');
           if (!list) return;
           if (!indicator) {
             indicator = document.createElement("div");
@@ -149,16 +150,18 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
           if (indicator && !indicator.isConnected) appendIndicator();
         }).observe(sr, { childList: true, subtree: true });
 
+        // Capture phase: the widget stops propagation of these events once a
+        // conversation is live, so bubble-phase listeners never fire.
         sr.addEventListener("click", function (e) {
           var t = e.target;
           var btn = t && t.closest && t.closest('button[aria-label="Send"]');
           if (btn) setTimeout(showIndicator, 150);
-        });
+        }, true);
         sr.addEventListener("keydown", function (e) {
           if (e.key !== "Enter" || e.shiftKey) return;
           var t = e.target;
           if (t && t.tagName === "TEXTAREA" && t.value.trim()) setTimeout(showIndicator, 150);
-        });
+        }, true);
       }
     })();
   </script>
