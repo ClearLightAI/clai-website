@@ -102,39 +102,51 @@ const AGENT_ID = "agent_3601kktqh8pfej0ayy03jfaj7z1b";
       function setupTyping(sr) {
         var indicator = null;
         var failsafe = null;
+        var waiting = false;
 
         function removeIndicator() {
+          waiting = false;
           if (indicator) { indicator.remove(); indicator = null; }
           if (failsafe) { clearTimeout(failsafe); failsafe = null; }
         }
 
-        function showIndicator() {
-          removeIndicator();
+        function appendIndicator() {
           var list = sr.querySelector('div[class*="overflow-y-auto"] div[class*="flex-col"]');
           if (!list) return;
-          indicator = document.createElement("div");
-          indicator.className = "pr-8";
-          indicator.setAttribute("data-aw-typing", "1");
-          indicator.innerHTML = '<div class="aw-typing"><span></span><span></span><span></span></div>';
+          if (!indicator) {
+            indicator = document.createElement("div");
+            indicator.className = "pr-8";
+            indicator.setAttribute("data-aw-typing", "1");
+            indicator.innerHTML = '<div class="aw-typing"><span></span><span></span><span></span></div>';
+          }
           list.appendChild(indicator);
           indicator.scrollIntoView({ block: "end" });
+        }
+
+        function showIndicator() {
+          removeIndicator();
+          waiting = true;
+          appendIndicator();
           failsafe = setTimeout(removeIndicator, 60000);
         }
 
         function isAgentReply(node) {
           if (node.nodeType !== 1 || node.hasAttribute("data-aw-typing")) return false;
           if (node.getAttribute("class") === "pr-8") return true;
-          var inner = node.querySelector && node.querySelector('div[class="pr-8"]');
-          return !!(inner && !inner.hasAttribute("data-aw-typing"));
+          var inner = node.querySelector && node.querySelector('div[class="pr-8"]:not([data-aw-typing])');
+          return !!inner;
         }
 
         new MutationObserver(function (muts) {
+          if (!waiting) return;
           for (var i = 0; i < muts.length; i++) {
             var added = muts[i].addedNodes;
             for (var j = 0; j < added.length; j++) {
-              if (indicator && isAgentReply(added[j])) { removeIndicator(); return; }
+              if (isAgentReply(added[j])) { removeIndicator(); return; }
             }
           }
+          // The widget's own re-renders drop foreign nodes — re-append while waiting
+          if (indicator && !indicator.isConnected) appendIndicator();
         }).observe(sr, { childList: true, subtree: true });
 
         sr.addEventListener("click", function (e) {
